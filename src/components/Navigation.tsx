@@ -10,16 +10,28 @@ export function Navigation() {
   const { theme, resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const currentTheme = theme === "system" ? resolvedTheme : theme;
 
   const links = [
     { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
+    { name: "About", path: "/#about" },
     { name: "Experience", path: "/experience" },
     { name: "Projects", path: "/projects" },
     { name: "Skills", path: "/skills" },
@@ -29,7 +41,7 @@ export function Navigation() {
   ];
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         {/* Logo Section */}
         <Link href="/" className="logo-link">
