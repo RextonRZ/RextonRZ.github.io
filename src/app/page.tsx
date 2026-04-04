@@ -1,4 +1,5 @@
 import "./page.css";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 export default function Home() {
   return (
@@ -52,12 +53,14 @@ export default function Home() {
 
       {/* About Section added below Hero */}
       <section id="about" className="about-section">
-        <div className="about-content">
-          <h2 className="section-title">About Me</h2>
-          <p className="about-description">
-            A third-year Computer Science Artificial Intelligence student at the University of Malaya, passionate about developing data-driven projects using AI, analytics, and full-stack technologies. Focused on transforming complex data into actionable insights and building solutions that address real-world challenges.
-          </p>
-        </div>
+        <ScrollReveal className="about-reveal" animationClass="animate-pop-in">
+          <div className="about-content">
+            <h2 className="section-title">About Me</h2>
+            <p className="about-description">
+              A third-year Computer Science Artificial Intelligence student at University of Malaya, passionate about developing data-driven projects using AI, analytics, and full-stack technologies. Focused on transforming complex data into actionable insights and building solutions that address real-world challenges. Having rich experience in participating in hackathons, leading teams, and organizing community initiatives, I believe in my ability to develop practical solutions, collaborate effectively, and tackle challenging projects from start to finish.
+            </p>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   );

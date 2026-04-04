@@ -38,6 +38,7 @@ body {
   overflow-x: hidden;
   font-family: 'Outfit', sans-serif;
   color: var(--text-main);
+  scroll-behavior: smooth;
 }
 
 body {

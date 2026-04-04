@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import "./Navigation.css";
 
 export function Navigation() {
@@ -11,6 +12,7 @@ export function Navigation() {
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
@@ -40,11 +42,38 @@ export function Navigation() {
     { name: "Contact", path: "/contact" },
   ];
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    // Scroll to top for Home
+    if (path === "/" && pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setMobileMenuOpen(false);
+    } 
+    // Smooth scroll for hash links if we are already on the home page
+    else if (path.startsWith("/#") && pathname === "/") {
+      const hash = path.substring(1); // extracts "#about"
+      const targetElement = document.querySelector(hash);
+      
+      if (targetElement) {
+        e.preventDefault();
+        targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        
+        // Update URL to reflect the new hash without triggering Next.js routing
+        window.history.pushState(null, "", hash);
+      }
+      setMobileMenuOpen(false);
+    } 
+    // Normal Next.js navigation for other pages
+    else {
+      setMobileMenuOpen(false);
+    }
+  };
+
   return (
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         {/* Logo Section */}
-        <Link href="/" className="logo-link">
+        <Link href="/" className="logo-link" onClick={(e) => handleLinkClick(e, "/")}>
           <div className="logo-icon">
             <img 
               src={resolvedTheme === "dark" ? "/rzlogowhite.png" : "/rzlogoblack.png"} 
@@ -58,7 +87,12 @@ export function Navigation() {
           {/* Desktop Links */}
           <div className="desktop-links">
             {links.map((link) => (
-              <Link key={link.name} href={link.path} className="nav-link">
+              <Link 
+                key={link.name} 
+                href={link.path} 
+                className="nav-link"
+                onClick={(e) => handleLinkClick(e, link.path)}
+              >
                 {link.name}
               </Link>
             ))}
@@ -97,7 +131,7 @@ export function Navigation() {
               key={link.name} 
               href={link.path} 
               className="mobile-nav-link"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => handleLinkClick(e, link.path)}
             >
               {link.name}
             </Link>
