@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-top: #87CEEB;
+  --bg-top: rgb(105, 205, 251);
   --bg-bottom: #f0f9ff;
   --text-main: #1e293b;
   --text-muted: #202d3e;
-  --nav-bg: rgba(255, 255, 255, 0.7);
-  --nav-border: rgba(255, 255, 255, 0.5);
+  --nav-bg: rgba(255, 255, 255, 0);
+  --nav-border: rgba(255, 255, 255, 0);
   --accent: #2563eb;
   --card-bg: rgba(255, 255, 255, 0.8);
   --card-border: rgba(255, 255, 255, 0.6);
