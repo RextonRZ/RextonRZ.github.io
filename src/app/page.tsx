@@ -1,7 +1,64 @@
+"use client";
 import "./page.css";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
+// ── Photo data ────────────────────────────────────────────────────────────────
+type PhotoId = "main" | "hackathons" | "teams" | "community";
+
+interface Photo {
+  id: PhotoId;
+  src: string;
+  alt: string;
+  icon: string;
+  label: string;
+  keyword: string;    // matches hoveredCard keys
+  overlayText: string;
+}
+
+const ALL_PHOTOS: Photo[] = [
+  { id: "main", src: "/aboutme.JPG", alt: "About Me", icon: "", label: "About Me", keyword: "", overlayText: "Rui Zhe (Rexton)" },
+  { id: "hackathons", src: "/aboutme1.JPG", alt: "Hackathons", icon: "", label: "Hackathons", keyword: "hackathons", overlayText: "HACKATHONS" },
+  { id: "teams", src: "/aboutme2.JPG", alt: "Leading Teams", icon: "", label: "Leading Teams", keyword: "teams", overlayText: "LEADING TEAMS" },
+  { id: "community", src: "/aboutme3.jpg", alt: "Community Initiatives", icon: "", label: "Community", keyword: "community", overlayText: "COMMUNITY INITIATIVES" },
+];
+
+/** Hook: returns true while the section is in the viewport */
+function useSectionVisible(threshold = 0.15) {
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+
+  return { ref, visible };
+}
+
 export default function Home() {
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [mainPhotoId, setMainPhotoId] = useState<PhotoId>("main");
+  const [swapping, setSwapping] = useState(false);
+
+  const { ref: sectionRef, visible: sectionVisible } = useSectionVisible(0.15);
+
+  const swapMain = useCallback((id: PhotoId) => {
+    if (id === mainPhotoId || swapping) return;
+    setSwapping(true);
+    setMainPhotoId(id);
+    setTimeout(() => setSwapping(false), 500);
+  }, [mainPhotoId, swapping]);
+
+  const mainPhoto = ALL_PHOTOS.find(p => p.id === mainPhotoId)!;
+  const miniPhotos = ALL_PHOTOS.filter(p => p.id !== mainPhotoId);
+
   return (
     <div className="container">
       <section className="hero">
@@ -51,14 +108,88 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Section added below Hero */}
-      <section id="about" className="about-section">
-        <ScrollReveal className="about-reveal" animationClass="animate-pop-in">
-          <div className="about-content">
-            <h2 className="section-title">About Me</h2>
-            <p className="about-description">
-              A third-year Computer Science Artificial Intelligence student at University of Malaya, passionate about developing data-driven projects using AI, analytics, and full-stack technologies. Focused on transforming complex data into actionable insights and building solutions that address real-world challenges. Having rich experience in participating in hackathons, leading teams, and organizing community initiatives, I believe in my ability to develop practical solutions, collaborate effectively, and tackle challenging projects from start to finish.
-            </p>
+      {/* About Section */}
+      <section id="about" className="about-section" ref={sectionRef}>
+        <ScrollReveal className="about-reveal" animationClass="animate-pop-in" repeat exitClass="animate-pop-out">
+          <div className="about-layout">
+            {/* Left: Text Content */}
+            <div className="about-content">
+              <h2 className="section-title">About Me</h2>
+              <p className="about-description">
+                A third-year <strong>Computer Science Artificial Intelligence</strong> student at{" "}
+                <strong>University of Malaya</strong>, passionate about developing{" "}
+                <strong>data-driven projects</strong> using AI, analytics, and{" "}
+                <strong>full-stack technologies</strong>. Focused on transforming complex data into{" "}
+                <strong>actionable insights</strong> and building solutions that address{" "}
+                <strong>real-world challenges</strong>. Having rich experience in{" "}
+                <span className={`about-keyword${hoveredCard === "hackathons" ? " about-keyword--active" : ""}`}>
+                  participating in hackathons
+                </span>
+                ,{" "}
+                <span className={`about-keyword${hoveredCard === "teams" ? " about-keyword--active" : ""}`}>
+                  leading teams
+                </span>
+                , and{" "}
+                <span className={`about-keyword${hoveredCard === "community" ? " about-keyword--active" : ""}`}>
+                  organizing community initiatives
+                </span>
+                , I believe in my ability to <strong>develop practical solutions</strong>, collaborate
+                effectively, and tackle challenging projects from start to finish.
+              </p>
+            </div>
+
+            {/* Right: Floating Photo Panel */}
+            <div className="about-photos">
+              {/* Main Photo */}
+              <div
+                className={[
+                  "about-main-photo",
+                  swapping ? "about-main-swap" : "",
+                  sectionVisible ? "photo-enter" : "photo-exit",
+                ].filter(Boolean).join(" ")}
+              >
+                <img
+                  key={mainPhoto.src}
+                  src={mainPhoto.src}
+                  alt={mainPhoto.alt}
+                  className="about-main-img"
+                />
+                <div className="about-main-overlay">
+                  <span>{mainPhoto.overlayText}</span>
+                </div>
+              </div>
+
+              {/* Mini Cards */}
+              <div className="about-mini-cards">
+                {miniPhotos.map((photo, i) => (
+                  <div
+                    key={photo.id}
+                    className={[
+                      "about-mini-card",
+                      hoveredCard === photo.keyword ? "about-mini-card--active" : "",
+                      sectionVisible ? "mini-enter" : "mini-exit",
+                    ].filter(Boolean).join(" ")}
+                    onMouseEnter={() => photo.keyword && setHoveredCard(photo.keyword)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    onClick={() => swapMain(photo.id)}
+                    style={{
+                      animationDelay: sectionVisible ? `${i * 0.15}s` : "0s",
+                      cursor: "pointer",
+                    }}
+                    title={`Click to feature ${photo.label}`}
+                  >
+                    <img src={photo.src} alt={photo.alt} className="about-mini-img" />
+                    <div className="about-mini-label">
+                      <span className="about-mini-icon">{photo.icon}</span>
+                      <span>{photo.label}</span>
+                    </div>
+                    <div className="about-mini-glow" />
+                    {/* Click hint badge */}
+                    <div className="about-mini-swap-hint">⇅</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </ScrollReveal>
       </section>

@@ -304,19 +304,13 @@
 /* --- About Section --- */
 .about-section {
   padding: 4rem 0 6rem 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.about-content {
-  text-align: left;
-  max-width: 600px;
+  width: 100%;
 }
 
 .about-reveal {
   opacity: 0;
   transform: translateY(40px) scale(0.9);
+  width: 100%;
 }
 
 .animate-pop-in {
@@ -328,14 +322,29 @@
     opacity: 0;
     transform: translateY(40px) scale(0.9);
   }
+
   60% {
     opacity: 1;
     transform: translateY(0) scale(1.03);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+/* Two-column layout */
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 5rem;
+  align-items: center;
+  width: 100%;
+}
+
+.about-content {
+  text-align: left;
 }
 
 .section-title {
@@ -359,9 +368,339 @@
 }
 
 .about-description {
-  font-size: 1.25rem;
-  line-height: 1.8;
+  font-size: 1.2rem;
+  line-height: 1.9;
   color: var(--text-muted);
   animation: floatBubble 4s ease-in-out infinite;
   animation-delay: 0.4s;
+}
+
+.about-description strong {
+  color: #14294f;
+  font-weight: 700;
+}
+
+[data-theme='dark'] .about-description strong {
+  color: #9fe2ff;
+}
+
+/* Keyword spans that light up on card hover */
+.about-keyword {
+  display: inline;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 1px 4px;
+  transition: all 0.35s ease;
+  color: var(--text-muted);
+  position: relative;
+}
+
+.about-keyword--active {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.12);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+  -webkit-text-fill-color: #2563eb;
+}
+
+[data-theme='dark'] .about-keyword--active {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+  -webkit-text-fill-color: #38bdf8;
+}
+
+/* ---- Photo panel ---- */
+.about-photos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+/* Main Photo */
+.about-main-photo {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 24px;
+  overflow: hidden;
+  margin-top: 1rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+  flex-shrink: 0;
+  animation: floatBlob 7s ease-in-out infinite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 3px solid rgba(255, 255, 255, 0.35);
+}
+
+[data-theme='dark'] .about-main-photo {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.about-main-photo:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 28px 60px rgba(37, 99, 235, 0.25);
+}
+
+/* Pop-in animation when a mini card is swapped into the main slot */
+.about-main-swap {
+  animation: mainPhotoSwap 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes mainPhotoSwap {
+  0%   { transform: scale(0.82) translateY(10px); opacity: 0.4; }
+  60%  { transform: scale(1.04) translateY(-4px); opacity: 1; }
+  100% { transform: scale(1)    translateY(0);    opacity: 1; }
+}
+
+.about-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-main-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(4, 38, 134, 0.88) 0%, rgba(4, 38, 134, 0.3) 60%, transparent 100%);
+  padding: 1.5rem 1rem 1rem;
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.about-main-photo:hover .about-main-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Name line — always visible in overlay */
+.about-overlay-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+}
+
+/* Sub-tag line — shows the linked topic */
+.about-overlay-tag {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.18);
+  border-radius: 20px;
+  padding: 2px 10px;
+  backdrop-filter: blur(4px);
+  opacity: 0.92;
+}
+
+/* Mini card row */
+.about-mini-cards {
+  display: flex;
+  gap: 0.9rem;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.about-mini-card {
+  position: relative;
+  width: 108px;
+  height: 108px;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+  animation: floatMini 5s ease-in-out infinite;
+  flex-shrink: 0;
+  /* GPU layer so border-radius clip is applied before compositing — prevents the
+     rectangle-flash that appears when the animation first triggers repaint */
+  will-change: transform;
+  isolation: isolate;
+  transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
+}
+
+[data-theme='dark'] .about-mini-card {
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.about-mini-card:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.about-mini-card:nth-child(3) {
+  animation-delay: 1.2s;
+}
+
+@keyframes floatMini {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+}
+
+.about-mini-card--active {
+  transform: translateY(-10px) scale(1.12) rotate(0deg) !important;
+  border-color: #2563eb;
+  box-shadow: 0 16px 36px rgba(37, 99, 235, 0.4), 0 0 0 3px rgba(37, 99, 235, 0.2);
+  animation-play-state: paused;
+}
+
+[data-theme='dark'] .about-mini-card--active {
+  border-color: #38bdf8;
+  box-shadow: 0 16px 36px rgba(56, 189, 248, 0.4), 0 0 0 3px rgba(56, 189, 248, 0.2);
+}
+
+.about-mini-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.about-mini-card:hover .about-mini-img,
+.about-mini-card--active .about-mini-img {
+  transform: scale(1.1);
+}
+
+/* Label that appears on hover */
+.about-mini-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(4, 38, 134, 0.85) 0%, transparent 100%);
+  padding: 0.5rem 0.4rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.35s ease;
+}
+
+.about-mini-card:hover .about-mini-label,
+.about-mini-card--active .about-mini-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-mini-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Glow pulse on active */
+.about-mini-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at center, rgba(37, 99, 235, 0.35) 0%, transparent 70%);
+  transition: opacity 0.35s ease;
+}
+
+.about-mini-card--active .about-mini-glow {
+  opacity: 1;
+  animation: glowPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Swap hint badge — shows ⇅ on mini card hover */
+.about-mini-swap-hint {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(37, 99, 235, 0.85);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 1px 5px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: all 0.25s ease;
+  pointer-events: none;
+  line-height: 1.4;
+  backdrop-filter: blur(4px);
+}
+
+.about-mini-card:hover .about-mini-swap-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .about-photos {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .about-main-photo {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-main-photo {
+    width: 200px;
+    height: 200px;
+  }
+
+  .about-mini-card {
+    width: 88px;
+    height: 88px;
+  }
+
+  .about-mini-cards {
+    gap: 0.6rem;
+  }
 }
