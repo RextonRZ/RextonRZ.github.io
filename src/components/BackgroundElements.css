@@ -1,0 +1,172 @@
+.theme-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  transition: opacity 1s ease-in-out;
+  z-index: -1;
+  overflow: hidden;
+}
+
+[data-theme='dark'] .clouds-layer {
+  opacity: 0;
+}
+
+[data-theme='light'] .stars-layer {
+  opacity: 0;
+}
+
+[data-theme='system'] .stars-layer {
+  opacity: 0;
+}
+
+/* System defaults to light for above depending on resolvedTheme, but we use actual next-theme data attribute which applies correctly. */
+
+/* CLOUDS ANIMATION */
+.cloud {
+  position: absolute;
+  animation: floatCloud linear infinite;
+  filter: blur(12px) drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.05));
+  opacity: 0.6;
+}
+
+.cloud-1 {
+  top: 10%;
+  transform: scale(1.0);
+  animation-duration: 45s;
+}
+
+.cloud-2 {
+  top: 35%;
+  transform: scale(1.4);
+  animation-duration: 60s;
+  animation-delay: -15s;
+}
+
+.cloud-3 {
+  top: 60%;
+  transform: scale(0.9);
+  animation-duration: 35s;
+  animation-delay: -5s;
+}
+
+.cloud-4 {
+  top: 25%;
+  transform: scale(1.2);
+  animation-duration: 55s;
+  animation-delay: -30s;
+}
+
+.cloud-5 {
+  top: 75%;
+  transform: scale(1.5);
+  animation-duration: 70s;
+  animation-delay: -20s;
+}
+
+@keyframes floatCloud {
+  0% {
+    left: -20%;
+  }
+
+  100% {
+    left: 120%;
+  }
+}
+
+/* STARS ANIMATION */
+.starfield {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+}
+
+/* 
+  To create a majestic starfield in Pure CSS, we apply a massive multi-layered box-shadow 
+  to a single 1x1 pixel element. Each box-shadow maps a star's x/y coordinate.
+*/
+.starfield-1 {
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  animation: twinkle 4s infinite ease-in-out;
+  box-shadow:
+    10vw 20vh #fff, 20vw 10vh #fff, 30vw 40vh #fff, 40vw 30vh #fff, 50vw 80vh #fff,
+    60vw 15vh #fff, 70vw 60vh #fff, 80vw 20vh #fff, 90vw 50vh #fff, 15vw 70vh #fff,
+    25vw 50vh #fff, 35vw 90vh #fff, 45vw 10vh #fff, 55vw 40vh #fff, 65vw 80vh #fff,
+    75vw 30vh #fff, 85vw 70vh #fff, 95vw 10vh #fff, 5vw 40vh #fff, 12vw 85vh #fff,
+    22vw 25vh #fff, 32vw 65vh #fff, 42vw 85vh #fff, 52vw 25vh #fff, 62vw 65vh #fff,
+    72vw 85vh #fff, 82vw 45vh #fff, 92vw 95vh #fff;
+}
+
+.starfield-2 {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  animation: twinkle 6s infinite ease-in-out;
+  animation-delay: -2s;
+  box-shadow:
+    18vw 28vh #fff, 28vw 18vh #fff, 38vw 48vh #fff, 48vw 38vh #fff, 58vw 88vh #fff,
+    68vw 13vh #fff, 78vw 58vh #fff, 88vw 28vh #fff, 98vw 48vh #fff, 13vw 78vh #fff,
+    26vw 53vh #fff, 31vw 93vh #fff, 46vw 16vh #fff, 56vw 43vh #fff, 61vw 86vh #fff,
+    76vw 36vh #fff, 81vw 73vh #fff, 96vw 12vh #fff, 8vw 42vh #fff, 16vw 86vh #fff;
+}
+
+.starfield-3 {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  animation: twinkle 8s infinite ease-in-out;
+  animation-delay: -4s;
+  box-shadow:
+    15vw 15vh #fff, 25vw 75vh #fff, 45vw 55vh #fff, 65vw 25vh #fff, 85vw 85vh #fff,
+    35vw 35vh #fff, 55vw 95vh #fff, 75vw 15vh #fff, 95vw 65vh #fff, 5vw 55vh #fff;
+}
+
+.shooting-star {
+  position: absolute;
+  top: 10%;
+  left: 20%;
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  transform: rotate(-45deg);
+  animation: shootingStar 10s infinite linear;
+  opacity: 0;
+}
+
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes shootingStar {
+  0% {
+    transform: rotate(-45deg) translateX(-100px);
+    opacity: 1;
+  }
+
+  10% {
+    transform: rotate(-45deg) translateX(40vw);
+    opacity: 0;
+  }
+
+  100% {
+    transform: rotate(-45deg) translateX(40vw);
+    opacity: 0;
+  }
+}
