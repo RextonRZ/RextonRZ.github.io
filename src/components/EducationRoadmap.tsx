@@ -167,7 +167,7 @@ export function EducationRoadmap() {
   const renderActiveIndex = Math.min(2, Math.max(0, Math.round(continuousIndex)));
 
   return (
-    <section className="education-section">
+    <section id="education" className="education-section">
       <div className="education-layout">
         {/* Left: Interactive Timeline Items */}
         <div

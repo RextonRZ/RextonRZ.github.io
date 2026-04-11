@@ -34,6 +34,7 @@ export function Navigation() {
   const links = [
     { name: "Home", path: "/" },
     { name: "About", path: "/#about" },
+    { name: "Education", path: "/#education" },
     { name: "Experience", path: "/experience" },
     { name: "Projects", path: "/projects" },
     { name: "Skills", path: "/skills" },
