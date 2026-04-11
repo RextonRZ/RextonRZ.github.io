@@ -55,9 +55,9 @@ export function EducationRoadmap() {
 
   // Manage currently visible images for each milestone (6 total per milestone)
   const [activeIndices, setActiveIndices] = useState<number[][]>([
-    [0, 1], // images for SMJK
-    [0, 1], // images for Penang
-    [0, 1]  // images for UM
+    [0, 1, 2, 3, 4, 5], // images for SMJK
+    [0, 1, 2, 3, 4, 5], // images for Penang
+    [0, 1, 2, 3, 4, 5]  // images for UM
   ]);
 
   // State for pop animations
@@ -86,28 +86,19 @@ export function EducationRoadmap() {
     setTimeout(() => {
       setActiveIndices(prev => {
         const next = [...prev];
-        const currentArr = next[milestoneIndex];
-
-        // Pick random index from 0 to 5 that is not already visible
-        const pickRandom = (exclude: number[]) => {
-          let r;
-          do { r = Math.floor(Math.random() * 6); } while (exclude.includes(r));
-          return r;
-        };
+        const currentArr = [...next[milestoneIndex]];
 
         if (bubble === 1) {
-          // b2 becomes b1. new random becomes b2.
-          const b1 = currentArr[0];
-          const b2 = currentArr[1];
-          const newB2 = pickRandom([b1, b2]);
-          next[milestoneIndex] = [b2, newB2];
+          // Pop Bubble 1 (item at index 0)
+          const popped = currentArr.shift()!;
+          currentArr.push(popped);
         } else {
-          // b1 stays. new random becomes b2.
-          const b1 = currentArr[0];
-          const b2 = currentArr[1];
-          const newB2 = pickRandom([b1, b2]);
-          next[milestoneIndex] = [b1, newB2];
+          // Pop Bubble 2 (item at index 1)
+          const popped = currentArr.splice(1, 1)[0];
+          currentArr.push(popped);
         }
+        
+        next[milestoneIndex] = currentArr;
         return next;
       });
 
