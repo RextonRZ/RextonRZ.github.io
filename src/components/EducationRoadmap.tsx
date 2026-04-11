@@ -22,12 +22,12 @@ const educationData = [
     stream: "Matriculation (Life Science)",
     grades: "CGPA 4.00",
     images: [
-      "/aboutme1.JPG",
-      "/aboutme.JPG",
-      "/aboutme1.JPG",
-      "/aboutme.JPG",
-      "/aboutme1.JPG",
-      "/aboutme.JPG"
+      "/pmc1.jpg",
+      "/pmc2.jpg",
+      "/pmc3.jpg",
+      "/pmc4.jpg",
+      "/pmc5.jpg",
+      "/pmc6.jpg"
     ]
   },
   {
