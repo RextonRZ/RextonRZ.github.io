@@ -6,8 +6,10 @@
 
 .education-layout {
   display: grid;
-  grid-template-columns: 1fr 500px; /* Wider column for images */
-  gap: 2rem; /* Reduced gap to bring bubbles closer to text */
+  grid-template-columns: 1fr 500px;
+  /* Wider column for images */
+  gap: 2rem;
+  /* Reduced gap to bring bubbles closer to text */
   align-items: center;
   width: 100%;
   position: relative;
@@ -16,15 +18,18 @@
 /* Left side: Timeline items container */
 .education-timeline {
   position: relative;
-  height: 400px; /* enough height for item text to drift */
+  height: 400px;
+  /* enough height for item text to drift */
   z-index: 10;
-  touch-action: pan-y; /* allow vertical scroll, capture horiz swap */
+  touch-action: pan-y;
+  /* allow vertical scroll, capture horiz swap */
 }
 
 .education-item {
   position: absolute;
   top: 50%;
-  left: -1.5rem; /* Shifting left perfectly align with optical margin of hero profile */
+  left: -1.5rem;
+  /* Shifting left perfectly align with optical margin of hero profile */
   width: 100%;
   max-width: 500px;
   transform-origin: left center;
@@ -34,13 +39,15 @@
 }
 
 .education-item.dragging {
-  transition: transform 0.05s linear, opacity 0.05s linear; /* immediate tracking when dragging */
+  transition: transform 0.05s linear, opacity 0.05s linear;
+  /* immediate tracking when dragging */
 }
 
 /* Base styling for timeline elements */
 .edu-period {
   font-family: var(--font-mono, monospace);
-  font-size: 1.25rem; /* Matched to current design */
+  font-size: 1.25rem;
+  /* Matched to current design */
   color: var(--accent, #38bdf8);
   margin-bottom: 0.8rem;
   font-weight: 600;
@@ -49,7 +56,8 @@
 }
 
 .edu-institution {
-  font-size: 2.8rem; /* Made bigger */
+  font-size: 2.8rem;
+  /* Made bigger */
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 0.8rem;
@@ -58,14 +66,16 @@
 }
 
 .edu-stream {
-  font-size: 1.4rem; /* Made bigger */
+  font-size: 1.4rem;
+  /* Made bigger */
   color: var(--text-muted);
   margin-bottom: 0.5rem;
   font-weight: 500;
 }
 
 .edu-grades {
-  font-size: 1.25rem; /* Made bigger */
+  font-size: 1.25rem;
+  /* Made bigger */
   color: var(--text-main);
   font-weight: 600;
 }
@@ -98,10 +108,11 @@
 .edu-bubble {
   position: absolute;
   overflow: hidden;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.1);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   border: 4px solid rgba(255, 255, 255, 0.05);
   background: var(--bg-card);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; /* Droplet base shape */
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  /* Droplet base shape */
   transition: border-radius 0.3s ease;
   transform-origin: center center;
 }
@@ -114,7 +125,8 @@
 }
 
 .edu-bubble:hover img {
-  transform: scale(1.05); /* Slight zoom on hover */
+  transform: scale(1.05);
+  /* Slight zoom on hover */
 }
 
 /* Specific Bubble positioning & animations */
@@ -134,51 +146,111 @@
   right: -50px;
   z-index: 1;
   animation: floatEduReverse 8s ease-in-out infinite, morphEduBlob 9s ease-in-out infinite reverse;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 @keyframes floatEdu {
-  0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-15px) rotate(2deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(2deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
 }
 
 @keyframes floatEduReverse {
-  0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(20px) rotate(-2deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(20px) rotate(-2deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
 }
 
 @keyframes morphEduBlob {
-  0% { border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; }
-  33% { border-radius: 60% 40% 40% 60% / 50% 70% 30% 50%; }
-  66% { border-radius: 40% 60% 60% 40% / 70% 50% 50% 30%; }
-  100% { border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; }
+  0% {
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  }
+
+  33% {
+    border-radius: 60% 40% 40% 60% / 50% 70% 30% 50%;
+  }
+
+  66% {
+    border-radius: 40% 60% 60% 40% / 70% 50% 50% 30%;
+  }
+
+  100% {
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  }
 }
 
 /* Interactivity Pop Animations */
 @keyframes popOutAnim {
-  0% { transform: scale(1); opacity: 1; filter: blur(0px); }
-  50% { transform: scale(1.15); opacity: 0.5; filter: blur(2px); }
-  100% { transform: scale(1.3); opacity: 0; filter: blur(4px); }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0px);
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 0.5;
+    filter: blur(2px);
+  }
+
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+    filter: blur(4px);
+  }
 }
+
 .pop-out {
   animation: popOutAnim 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
 }
 
 @keyframes popInAnim {
-  0% { transform: scale(0); opacity: 0; }
-  60% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
+
 .pop-in {
   animation: popInAnim 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
 }
 
 @keyframes moveTo1Anim {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-170px, -240px) scale(1.23); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(-170px, -240px) scale(1.23);
+  }
 }
+
 .move-to-1 {
   animation: moveTo1Anim 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
 }
@@ -216,7 +288,7 @@
   .education-timeline {
     height: 300px;
   }
-  
+
   .education-bubbles-area {
     width: 280px;
     height: 280px;
@@ -227,7 +299,7 @@
     height: 220px;
     right: 40px;
   }
-  
+
   .edu-bubble-2 {
     width: 150px;
     height: 150px;

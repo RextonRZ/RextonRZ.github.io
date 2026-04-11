@@ -303,7 +303,7 @@
 
 /* --- About Section --- */
 .about-section {
-  padding: 4rem 0 6rem 0;
+  padding: 12rem 0 14rem 0;
   width: 100%;
 }
 
@@ -448,9 +448,20 @@
 }
 
 @keyframes mainPhotoSwap {
-  0%   { transform: scale(0.82) translateY(10px); opacity: 0.4; }
-  60%  { transform: scale(1.04) translateY(-4px); opacity: 1; }
-  100% { transform: scale(1)    translateY(0);    opacity: 1; }
+  0% {
+    transform: scale(0.82) translateY(10px);
+    opacity: 0.4;
+  }
+
+  60% {
+    transform: scale(1.04) translateY(-4px);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
 }
 
 .about-main-img {
@@ -488,7 +499,7 @@
   font-size: 1.1rem;
   font-weight: 800;
   letter-spacing: 0.06em;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
 }
 
 /* Sub-tag line — shows the linked topic */
@@ -497,7 +508,7 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  background: rgba(255,255,255,0.18);
+  background: rgba(255, 255, 255, 0.18);
   border-radius: 20px;
   padding: 2px 10px;
   backdrop-filter: blur(4px);

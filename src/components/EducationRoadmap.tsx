@@ -36,12 +36,12 @@ const educationData = [
     stream: "Bachelor of Computer Science (Artificial Intelligence)",
     grades: "",
     images: [
-      "/aboutme.JPG",
-      "/aboutme1.JPG",
-      "/aboutme.JPG",
-      "/aboutme1.JPG",
-      "/aboutme.JPG",
-      "/aboutme1.JPG"
+      "/um.jpg",
+      "/um1.jpg",
+      "/um2.jpg",
+      "/um3.png",
+      "/um4.jpg",
+      "/um5.jpg"
     ]
   }
 ];
@@ -63,6 +63,18 @@ export function EducationRoadmap() {
   // State for pop animations
   const [popState, setPopState] = useState<{ milestone: number, type: "idle" | "pop-b1" | "pop-b2" }>({ milestone: -1, type: "idle" });
   const [enteringState, setEnteringState] = useState<{ milestone: number }>({ milestone: -1 });
+
+  // Auto-slide effect (5s no touch)
+  useEffect(() => {
+    if (isDragging || popState.type !== "idle" || enteringState.milestone !== -1) {
+      return;
+    }
+    const timer = setTimeout(() => {
+      setActiveIndex((prev) => (prev + 1) % educationData.length);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [activeIndex, isDragging, popState.type, enteringState.milestone]);
 
   const handleDoubleClick = (milestoneIndex: number, bubble: 1 | 2) => {
     // Only allow popping if not already dragging or animating
