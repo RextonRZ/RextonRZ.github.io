@@ -39,7 +39,7 @@ const educationData = [
       "/um.jpg",
       "/um1.jpg",
       "/um2.jpg",
-      "/um3.png",
+      "/um3.jpg",
       "/um4.jpg",
       "/um5.jpg"
     ]
@@ -97,7 +97,7 @@ export function EducationRoadmap() {
           const popped = currentArr.splice(1, 1)[0];
           currentArr.push(popped);
         }
-        
+
         next[milestoneIndex] = currentArr;
         return next;
       });
