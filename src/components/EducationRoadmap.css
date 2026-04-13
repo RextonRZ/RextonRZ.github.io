@@ -153,6 +153,179 @@
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
+/* ── Decorative Ambient Photo Bubbles ── */
+/* Back layer — large, subtly blurred, behind main photo bubbles */
+.edu-bubble-back-1 {
+  width: 220px;
+  height: 200px;
+  top: -30px;
+  left: -40px;
+  z-index: 0;
+  border-radius: 62% 38% 46% 54% / 60% 44% 56% 40%;
+  filter: blur(8px) brightness(0.65);
+  animation: floatBlurBack1 10s ease-in-out infinite, morphBlurBack1 14s ease-in-out infinite;
+}
+
+.edu-bubble-back-2 {
+  width: 180px;
+  height: 240px;
+  bottom: -30px;
+  right: -40px;
+  z-index: 0;
+  border-radius: 44% 56% 68% 32% / 52% 36% 64% 48%;
+  filter: blur(10px) brightness(0.65);
+  animation: floatBlurBack2 12s ease-in-out infinite, morphBlurBack2 16s ease-in-out infinite;
+}
+
+/* Front layer — smaller, lighter blur, overlaid on top of main photo bubbles */
+.edu-bubble-front-1 {
+  width: 140px;
+  height: 150px;
+  top: 20px;
+  right: -10px;
+  z-index: 20;
+  border-radius: 54% 46% 38% 62% / 48% 64% 36% 52%;
+  filter: blur(6px) brightness(0.85);
+  animation: floatBlurFront1 9s ease-in-out infinite, morphBlurFront1 11s ease-in-out infinite;
+}
+
+.edu-bubble-front-2 {
+  width: 120px;
+  height: 130px;
+  bottom: 50px;
+  left: 30px;
+  z-index: 20;
+  border-radius: 40% 60% 52% 48% / 56% 42% 58% 44%;
+  filter: blur(5px) brightness(0.85);
+  animation: floatBlurFront2 8s ease-in-out infinite, morphBlurFront2 13s ease-in-out infinite;
+}
+
+/* ── Blur Bubble Float Animations ── */
+@keyframes floatBlurBack1 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  33% {
+    transform: translate(12px, -18px) rotate(4deg);
+  }
+
+  66% {
+    transform: translate(-8px, 10px) rotate(-3deg);
+  }
+}
+
+@keyframes floatBlurBack2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  40% {
+    transform: translate(-14px, 16px) rotate(-5deg);
+  }
+
+  70% {
+    transform: translate(10px, -8px) rotate(3deg);
+  }
+}
+
+@keyframes floatBlurFront1 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(-10px, -14px) rotate(6deg);
+  }
+}
+
+@keyframes floatBlurFront2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  30% {
+    transform: translate(8px, 12px) rotate(-4deg);
+  }
+
+  70% {
+    transform: translate(-6px, -10px) rotate(5deg);
+  }
+}
+
+/* ── Blur Bubble Morph Animations ── */
+@keyframes morphBlurBack1 {
+
+  0%,
+  100% {
+    border-radius: 62% 38% 46% 54% / 60% 44% 56% 40%;
+  }
+
+  25% {
+    border-radius: 48% 52% 58% 42% / 40% 60% 44% 56%;
+  }
+
+  50% {
+    border-radius: 56% 44% 36% 64% / 52% 48% 62% 38%;
+  }
+
+  75% {
+    border-radius: 42% 58% 52% 48% / 64% 36% 48% 52%;
+  }
+}
+
+@keyframes morphBlurBack2 {
+
+  0%,
+  100% {
+    border-radius: 44% 56% 68% 32% / 52% 36% 64% 48%;
+  }
+
+  33% {
+    border-radius: 58% 42% 44% 56% / 36% 64% 48% 52%;
+  }
+
+  66% {
+    border-radius: 36% 64% 52% 48% / 56% 44% 38% 62%;
+  }
+}
+
+@keyframes morphBlurFront1 {
+
+  0%,
+  100% {
+    border-radius: 54% 46% 38% 62% / 48% 64% 36% 52%;
+  }
+
+  50% {
+    border-radius: 40% 60% 56% 44% / 62% 38% 52% 48%;
+  }
+}
+
+@keyframes morphBlurFront2 {
+
+  0%,
+  100% {
+    border-radius: 40% 60% 52% 48% / 56% 42% 58% 44%;
+  }
+
+  33% {
+    border-radius: 56% 44% 42% 58% / 44% 56% 48% 52%;
+  }
+
+  66% {
+    border-radius: 48% 52% 60% 40% / 58% 44% 42% 56%;
+  }
+}
+
 @keyframes floatEdu {
   0% {
     transform: translateY(0px) rotate(0deg);
@@ -273,18 +446,58 @@
   /* Bubbles underneath timeline content */
   .education-bubbles-area {
     margin: 0 auto;
-    width: 350px;
-    height: 350px;
+    width: 420px;
+    /* Increased from 350px */
+    height: 420px;
   }
 
   .edu-bubble-1 {
-    width: 250px;
-    height: 270px;
+    width: 300px;
+    height: 320px;
+    right: 80px;
   }
 
   .edu-bubble-2 {
-    width: 180px;
-    height: 180px;
+    width: 240px;
+    height: 240px;
+    right: -10px;
+  }
+
+  /* Move foreground blurs to back */
+  .edu-bubble-front-1,
+  .edu-bubble-front-2 {
+    z-index: 0;
+    opacity: 0.5 !important;
+    /* Make them even more subtle */
+  }
+
+  /* Scale ambient blur bubbles for 350px container (~70% of 500px) */
+  .edu-bubble-back-1 {
+    width: 154px;
+    height: 140px;
+    top: -20px;
+    left: -25px;
+  }
+
+  .edu-bubble-back-2 {
+    width: 126px;
+    height: 168px;
+    bottom: -20px;
+    right: -25px;
+  }
+
+  .edu-bubble-front-1 {
+    width: 100px;
+    height: 105px;
+    top: 15px;
+    right: -5px;
+  }
+
+  .edu-bubble-front-2 {
+    width: 85px;
+    height: 90px;
+    bottom: 35px;
+    left: 20px;
   }
 }
 
@@ -294,19 +507,72 @@
   }
 
   .education-bubbles-area {
-    width: 280px;
-    height: 280px;
+    width: 320px;
+    /* Larger container */
+    height: 420px;
+    margin: 3rem auto 0 auto;
+    /* Restored and increased space from text */
   }
 
   .edu-bubble-1 {
-    width: 200px;
-    height: 220px;
-    right: 40px;
+    width: 250px;
+    /* Larger main bubble */
+    height: 270px;
+    right: 35px;
   }
 
   .edu-bubble-2 {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    /* Larger secondary bubble */
+    height: 200px;
     right: -10px;
+  }
+
+  /* Move foreground blurs to back */
+  .edu-bubble-front-1,
+  .edu-bubble-front-2 {
+    z-index: 0;
+    opacity: 0.4 !important;
+  }
+
+  /* Scale ambient blur bubbles for larger container */
+  .edu-bubble-back-1 {
+    width: 250px;
+    height: 180px;
+    top: -80px;
+    left: -100px;
+    opacity: 0.6 !important;
+    /* Increased from 0.2 */
+    filter: blur(15px) brightness(0.75);
+    /* Increased from 0.65 */
+  }
+
+  .edu-bubble-back-2 {
+    width: 200px;
+    height: 220px;
+    bottom: -100px;
+    right: -120px;
+    opacity: 0.6 !important;
+    /* Increased from 0.15 */
+    filter: blur(15px) brightness(0.75);
+  }
+
+  .edu-bubble-front-1 {
+    width: 160px;
+    height: 160px;
+    top: 120px;
+    right: -60px;
+    opacity: 0.3 !important;
+    /* Increased from 0.15 */
+    filter: blur(25px) brightness(0.8);
+  }
+
+  .edu-bubble-front-2 {
+    width: 68px;
+    height: 72px;
+    bottom: 25px;
+    right: -50px;
+    display: none;
+    /* Hide one to reduce clutter on very small screens */
   }
 }

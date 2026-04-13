@@ -695,20 +695,20 @@
   }
 
   .about-main-photo {
-    width: 240px;
-    height: 240px;
+    width: 300px; /* Increased from 240 */
+    height: 300px;
   }
 }
 
 @media (max-width: 600px) {
   .about-main-photo {
-    width: 200px;
-    height: 200px;
+    width: 260px; /* Increased from 200 */
+    height: 260px;
   }
 
   .about-mini-card {
-    width: 88px;
-    height: 88px;
+    width: 100px; /* Increased from 88 */
+    height: 100px;
   }
 
   .about-mini-cards {

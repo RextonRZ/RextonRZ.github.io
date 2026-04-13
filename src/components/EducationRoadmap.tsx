@@ -50,7 +50,15 @@ export function EducationRoadmap() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1200);
   const startXRef = useRef(0);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const DRAG_THRESHOLD = 250;
 
   // Manage currently visible images for each milestone (6 total per milestone)
@@ -215,7 +223,7 @@ export function EducationRoadmap() {
         >
           {educationData.map((item, index) => {
             const offset = index - continuousIndex;
-            const [idx1, idx2] = activeIndices[index] || [0, 1];
+            const [idx1, idx2, idx3, idx4, idx5, idx6] = activeIndices[index] || [0, 1, 2, 3, 4, 5];
 
             // Pop States
             const isPopB1 = popState.milestone === index && popState.type === "pop-b1";
@@ -232,16 +240,22 @@ export function EducationRoadmap() {
             let b2Opacity = 0;
             let b2Scale = 1;
 
+            // Responsive multipliers for offsets
+            const scaleFactor = windowWidth < 600 ? 0.64 : windowWidth < 1000 ? 0.84 : 1;
+            const b1XBase = 220 * scaleFactor;
+            const b1YBase = 80 * scaleFactor;
+            const b2XBase = 100 * scaleFactor;
+
             if (offset >= 0 && offset <= 1) {
               // Interpolating towards active
               // When offset = 1 (it is the next item preview, appearing as the "3rd bubble")
-              b1TranslateX = offset * 220;
-              b1TranslateY = offset * 80;
+              b1TranslateX = offset * b1XBase;
+              b1TranslateY = offset * b1YBase;
               b1Scale = 1 - (offset * 0.4); // 0.6 size when preview
               b1Opacity = 1 - (offset * 0.4); // 0.6 opacity when preview
               b1Blur = offset * 5;
 
-              b2TranslateX = offset * 100;
+              b2TranslateX = offset * b2XBase;
               b2Scale = 1 - (offset * 0.2);
               b2Opacity = 1 - (offset * 2); // Fades completely out early so it doesn't show in preview
             } else if (offset > 1) {
@@ -250,13 +264,13 @@ export function EducationRoadmap() {
               b2Opacity = 0;
             } else if (offset >= -1 && offset < 0) {
               // Previous item preview
-              b1TranslateX = offset * 220; // Moves left
-              b1TranslateY = offset * 80;  // Moves up
+              b1TranslateX = offset * b1XBase; // Moves left
+              b1TranslateY = offset * b1YBase;  // Moves up
               b1Scale = 1 + (offset * 0.4); // Shrinks to 0.6
               b1Opacity = 1 + (offset * 0.4); // Fades to 0.6
               b1Blur = -offset * 5; // Increases blur up to +5
 
-              b2TranslateX = offset * 100; // Moves left
+              b2TranslateX = offset * b2XBase; // Moves left
               b2Scale = 1 + (offset * 0.2); // Shrinks slightly
               b2Opacity = 1 + (offset * 2); // Fades out completely when offset < -0.5
             } else if (offset < -1) {
@@ -267,6 +281,7 @@ export function EducationRoadmap() {
 
             b1Opacity = Math.max(0, Math.min(1, b1Opacity));
             b2Opacity = Math.max(0, Math.min(1, b2Opacity));
+            let ambientOpacity = Math.max(0, 1 - Math.abs(offset) * 1.5);
 
             return (
               <div
@@ -276,6 +291,20 @@ export function EducationRoadmap() {
                   zIndex: 10 - Math.abs(offset)
                 }}
               >
+                {/* Background Ambient Bubbles */}
+                <div
+                  className={`edu-bubble-wrapper ${isDragging ? "dragging" : ""}`}
+                  style={{ opacity: ambientOpacity * 0.75 }}
+                >
+                </div>
+                <div
+                  className={`edu-bubble-wrapper ${isDragging ? "dragging" : ""}`}
+                  style={{ opacity: ambientOpacity * 0.65 }}
+                >
+                  <div className="edu-bubble edu-bubble-back-2">
+                    <img src={item.images[idx4]} draggable="false" alt="ambient background 2" />
+                  </div>
+                </div>
                 <div
                   className={`edu-bubble-wrapper ${isDragging ? "dragging" : ""}`}
                   style={{
@@ -316,6 +345,24 @@ export function EducationRoadmap() {
                     }}
                   >
                     <img src={item.images[idx2]} draggable="false" alt={`${item.institution} image 2`} />
+                  </div>
+                </div>
+
+                {/* Foreground Ambient Bubbles */}
+                <div
+                  className={`edu-bubble-wrapper ${isDragging ? "dragging" : ""}`}
+                  style={{ opacity: ambientOpacity * 0.8 }}
+                >
+                  <div className="edu-bubble edu-bubble-front-1">
+                    <img src={item.images[idx5]} draggable="false" alt="ambient foreground 1" />
+                  </div>
+                </div>
+                <div
+                  className={`edu-bubble-wrapper ${isDragging ? "dragging" : ""}`}
+                  style={{ opacity: ambientOpacity * 0.7 }}
+                >
+                  <div className="edu-bubble edu-bubble-front-2">
+                    <img src={item.images[idx6]} draggable="false" alt="ambient foreground 2" />
                   </div>
                 </div>
               </div>
