@@ -279,6 +279,11 @@ export function EducationRoadmap() {
                 >
                   <div
                     className={`edu-bubble edu-bubble-1 ${isPopB1 ? "pop-out" : ""}`}
+                    onClick={() => {
+                      if (index !== renderActiveIndex) {
+                        setActiveIndex(index);
+                      }
+                    }}
                     onDoubleClick={() => handleDoubleClick(index, 1)}
                     style={{ pointerEvents: "auto", cursor: "pointer" }}
                   >
