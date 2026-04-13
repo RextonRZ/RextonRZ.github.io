@@ -248,14 +248,21 @@ export function EducationRoadmap() {
               // Next-next preview is invisible
               b1Opacity = 0;
               b2Opacity = 0;
-            } else if (offset < 0) {
-              // Past item fading out quickly
-              b1TranslateX = offset * 150;
-              b1Opacity = 1 + (offset * 2.5);
-              b1Scale = 1 + (offset * 0.1);
-              b2TranslateX = offset * 150;
-              b2Opacity = 1 + (offset * 2.5);
-              b2Scale = 1 + (offset * 0.1);
+            } else if (offset >= -1 && offset < 0) {
+              // Previous item preview
+              b1TranslateX = offset * 220; // Moves left
+              b1TranslateY = offset * 80;  // Moves up
+              b1Scale = 1 + (offset * 0.4); // Shrinks to 0.6
+              b1Opacity = 1 + (offset * 0.4); // Fades to 0.6
+              b1Blur = -offset * 5; // Increases blur up to +5
+
+              b2TranslateX = offset * 100; // Moves left
+              b2Scale = 1 + (offset * 0.2); // Shrinks slightly
+              b2Opacity = 1 + (offset * 2); // Fades out completely when offset < -0.5
+            } else if (offset < -1) {
+              // Past-past preview invisible
+              b1Opacity = 0;
+              b2Opacity = 0;
             }
 
             b1Opacity = Math.max(0, Math.min(1, b1Opacity));
