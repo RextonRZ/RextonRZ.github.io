@@ -2,6 +2,7 @@
   padding: 4rem 0 6rem 0;
   width: 100%;
   user-select: none;
+  scroll-margin-top: 140px;
 }
 
 .education-layout {

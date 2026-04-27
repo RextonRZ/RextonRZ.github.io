@@ -3,6 +3,7 @@ import "./page.css";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { EducationRoadmap } from "@/components/EducationRoadmap";
+import { ExperienceSection } from "@/components/ExperienceSection";
 
 // ── Photo data ────────────────────────────────────────────────────────────────
 type PhotoId = "main" | "hackathons" | "teams" | "community";
@@ -197,6 +198,9 @@ export default function Home() {
 
       {/* Education Roadmap Section */}
       <EducationRoadmap />
+
+      {/* Experience Section */}
+      <ExperienceSection />
     </div>
   );
 }

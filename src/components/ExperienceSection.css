@@ -1,0 +1,383 @@
+.experience-section {
+  padding: 2rem 0 3rem 0;
+  width: 100%;
+  scroll-margin-top: 80px;
+  margin-left: -1.5rem;
+}
+
+.experience-heading {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  margin-bottom: 3rem;
+  margin-left: 0;
+  letter-spacing: -0.5px;
+  background: linear-gradient(to right, #14294f, #385c95, #042686);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme='dark'] .experience-heading {
+  background: linear-gradient(to right, #2563eb, #38bdf8, #0ea5e9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Float area ── */
+.experience-float-area {
+  position: relative;
+  width: 100%;
+  padding-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+@media (max-width: 1200px) {
+  .experience-float-area {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  .experience-float-area {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .experience-float-area {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 400px) {
+  .experience-float-area {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* Ambient glow behind all cards */
+.experience-float-area::before {
+  content: '';
+  position: absolute;
+  width: 680px;
+  height: 420px;
+  top: 45%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(56, 189, 248, 0.07) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: ambientPulse 9s ease-in-out infinite;
+}
+
+@keyframes ambientPulse {
+  0%,100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1);    }
+  50%     { opacity: 1;   transform: translate(-50%, -50%) scale(1.25); }
+}
+
+/* ── DRIFT WRAPPER — animation + z-index ── */
+.exp-card-drift {
+  width: 100%;
+  max-width: 250px;
+  z-index: 5;
+}
+
+/* Row animations */
+.exp-card-drift--1  { animation: drift1  10s   ease-in-out infinite; }
+.exp-card-drift--2  { animation: drift2  14s   ease-in-out infinite; }
+.exp-card-drift--3  { animation: drift3  18s   ease-in-out infinite; }
+.exp-card-drift--4  { animation: drift4  11s   ease-in-out infinite; }
+.exp-card-drift--5  { animation: drift5  16s   ease-in-out infinite; }
+
+.exp-card-drift--6  { animation: drift6  9.5s  ease-in-out infinite; }
+.exp-card-drift--7  { animation: drift7  13s   ease-in-out infinite; }
+.exp-card-drift--8  { animation: drift8  19s   ease-in-out infinite; }
+.exp-card-drift--9  { animation: drift9  12s   ease-in-out infinite; }
+.exp-card-drift--10 { animation: drift10 15s   ease-in-out infinite; }
+
+/* Pause drift when hovering the card inside */
+.exp-card-drift:has(.exp-card:hover) {
+  animation-play-state: paused;
+  z-index: 50 !important;
+}
+
+/* ──────────────────────────────────────────
+   INNER CARD — owns visuals + hover scale
+   Separated from drift so transforms don't clash
+────────────────────────────────────────── */
+.exp-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--card-bg, rgba(255, 255, 255, 0.055));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  cursor: pointer;
+  user-select: none;
+  transform-origin: center center;
+  transition:
+    transform  0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.35s ease,
+    opacity    0.35s ease,
+    filter     0.35s ease;
+}
+
+/* ── Depth cycle keyframes removed (no fade/blur) ── */
+
+/* Depth cycle per card — all 10, unique duration + delay */
+.exp-card-drift--1  .exp-card { box-shadow: 0 12px 40px rgba(0,0,0,0.28), 0 0 28px rgba(56,189,248,0.07); }
+.exp-card-drift--2  .exp-card { box-shadow: 0 8px 28px rgba(0,0,0,0.22); }
+.exp-card-drift--3  .exp-card { box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+.exp-card-drift--4  .exp-card { box-shadow: 0 8px 28px rgba(0,0,0,0.22); }
+.exp-card-drift--5  .exp-card { box-shadow: 0 12px 40px rgba(0,0,0,0.28), 0 0 28px rgba(56,189,248,0.07); }
+.exp-card-drift--6  .exp-card { box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+.exp-card-drift--7  .exp-card { box-shadow: 0 8px 28px rgba(0,0,0,0.22); }
+.exp-card-drift--8  .exp-card { box-shadow: 0 12px 40px rgba(0,0,0,0.28), 0 0 28px rgba(56,189,248,0.07); }
+.exp-card-drift--9  .exp-card { box-shadow: 0 8px 28px rgba(0,0,0,0.22); }
+.exp-card-drift--10 .exp-card { box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+
+/* ── Hover: snap to full opacity + uniform lift ── */
+.exp-card:hover {
+  opacity: 1 !important;
+  filter: none !important;
+  transform: scale(1.08);
+  box-shadow: 0 28px 64px rgba(56,189,248,0.28), 0 8px 24px rgba(0,0,0,0.3) !important;
+}
+
+/* Image zoom on card hover */
+.exp-card:hover .exp-card-img {
+  transform: scale(1.08);
+}
+
+/* Image */
+.exp-card-img-wrap {
+  width: 100%;
+  aspect-ratio: 5 / 3;
+  overflow: hidden;
+  position: relative;
+}
+
+.exp-card-date-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.65rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-weight: 500;
+  z-index: 5;
+  white-space: nowrap;
+}
+
+.exp-modal-date-tag {
+  font-size: 0.85rem;
+  top: 1rem;
+  right: 3.5rem; /* leave space for close btn */
+  padding: 6px 12px;
+  border-radius: 16px;
+}
+
+.exp-modal-img-wrap {
+  position: relative;
+}
+
+.exp-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+/* Text */
+.exp-card-body {
+  padding: 0.7rem 0.9rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.exp-card-position {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.exp-card-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Drift keyframes changed to float only (minimal up/down movement, no left/right drifting) ── */
+@keyframes drift1 {
+  0%   { transform: translate(0px,  0px) rotate(-1deg) scale(1); }
+  50%  { transform: translate(0px, -15px) rotate(0.5deg) scale(1.02); }
+  100% { transform: translate(0px,  0px) rotate(-1deg) scale(1); }
+}
+@keyframes drift2 {
+  0%   { transform: translate(0px,  0px) rotate(1deg) scale(1); }
+  50%  { transform: translate(0px, -12px) rotate(-0.5deg) scale(1.015); }
+  100% { transform: translate(0px,  0px) rotate(1deg) scale(1); }
+}
+@keyframes drift3 {
+  0%   { transform: translate(0px,  0px) rotate(0.5deg) scale(1); }
+  50%  { transform: translate(0px, -18px) rotate(-0.8deg) scale(1.01); }
+  100% { transform: translate(0px,  0px) rotate(0.5deg) scale(1); }
+}
+@keyframes drift4 {
+  0%   { transform: translate(0px,  0px) rotate(0.8deg) scale(1); }
+  50%  { transform: translate(0px, -10px) rotate(-0.6deg) scale(1.02); }
+  100% { transform: translate(0px,  0px) rotate(0.8deg) scale(1); }
+}
+@keyframes drift5 {
+  0%   { transform: translate(0px,  0px) rotate(-1.2deg) scale(1); }
+  50%  { transform: translate(0px, -16px) rotate(0.8deg) scale(1.02); }
+  100% { transform: translate(0px,  0px) rotate(-1.2deg) scale(1); }
+}
+@keyframes drift6 {
+  0%   { transform: translate(0px,  0px) rotate(-0.5deg) scale(1); }
+  50%  { transform: translate(0px, -20px) rotate(1.2deg) scale(1.02); }
+  100% { transform: translate(0px,  0px) rotate(-0.5deg) scale(1); }
+}
+@keyframes drift7 {
+  0%   { transform: translate(0px,  0px) rotate(-0.6deg) scale(1); }
+  50%  { transform: translate(0px, -14px) rotate(0.9deg) scale(1.01); }
+  100% { transform: translate(0px,  0px) rotate(-0.6deg) scale(1); }
+}
+@keyframes drift8 {
+  0%   { transform: translate(0px,  0px) rotate(0.6deg) scale(1); }
+  50%  { transform: translate(0px, -18px) rotate(-0.4deg) scale(1.015); }
+  100% { transform: translate(0px,  0px) rotate(0.6deg) scale(1); }
+}
+@keyframes drift9 {
+  0%   { transform: translate(0px,  0px) rotate(-0.8deg) scale(1); }
+  50%  { transform: translate(0px, -12px) rotate(0.5deg) scale(0.98); }
+  100% { transform: translate(0px,  0px) rotate(-0.8deg) scale(1); }
+}
+@keyframes drift10 {
+  0%   { transform: translate(0px,  0px) rotate(1.2deg) scale(1); }
+  50%  { transform: translate(0px, -16px) rotate(-1deg) scale(1); }
+  100% { transform: translate(0px,  0px) rotate(1.2deg) scale(1); }
+}
+
+/* ── Modal ── */
+.exp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: overlayIn 0.25s ease both;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.exp-modal {
+  position: relative;
+  background: var(--bg-primary, #0f172a);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  overflow: hidden;
+  width: min(480px, 90vw);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+  animation: modalIn 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1);   }
+}
+
+.exp-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.exp-modal-close:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: scale(1.1);
+}
+
+.exp-modal-img-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.exp-modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.exp-modal-body {
+  padding: 1.5rem 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.exp-modal-position {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.exp-modal-desc {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .experience-section { margin-left: 0; }
+  .experience-float-area { min-height: 920px; }
+  .exp-card-drift { width: 140px; }
+  .exp-card-drift--1 { left: 0%;   top: 10px;  }
+  .exp-card-drift--2 { left: 50%;  top: 10px;  }
+  .exp-card-drift--3 { left: 0%;   top: 235px; }
+  .exp-card-drift--4 { left: 50%;  top: 235px; }
+  .exp-card-drift--5 { left: 0%;   top: 460px; }
+  .exp-card-drift--6 { left: 50%;  top: 460px; }
+  .exp-card-drift--7 { left: 0%;   top: 685px; }
+  .exp-card-drift--8 { left: 50%;  top: 685px; }
+}
