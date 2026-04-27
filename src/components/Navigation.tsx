@@ -37,7 +37,6 @@ export function Navigation() {
     { name: "Education", path: "/#education" },
     { name: "Experience", path: "/#experience" },
     { name: "Projects", path: "/projects" },
-    { name: "Skills", path: "/skills" },
     { name: "Awards", path: "/awards" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
