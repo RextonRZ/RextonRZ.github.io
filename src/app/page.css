@@ -715,3 +715,31 @@
     gap: 0.6rem;
   }
 }
+
+/* ── Projects Section ── */
+.projects-section {
+  padding: 2rem 0 3rem 0;
+  width: 100%;
+  scroll-margin-top: 80px;
+  margin-left: -1.5rem;
+}
+
+.projects-heading {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  margin-bottom: 3rem;
+  margin-left: 0;
+  letter-spacing: -0.5px;
+  background: linear-gradient(to right, #14294f, #385c95, #042686);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme='dark'] .projects-heading {
+  background: linear-gradient(to right, #2563eb, #38bdf8, #0ea5e9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

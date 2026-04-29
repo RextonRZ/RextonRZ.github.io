@@ -201,6 +201,11 @@ export default function Home() {
 
       {/* Experience Section */}
       <ExperienceSection />
+
+      {/* Projects Section */}
+      <section id="projects" className="projects-section">
+        <h2 className="projects-heading">Projects</h2>
+      </section>
     </div>
   );
 }
