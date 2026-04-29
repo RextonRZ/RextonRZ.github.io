@@ -1,4 +1,4 @@
-# Rui Zhe (Rexton) — Personal Portfolio
+# Personal Portfolio by Rui Zhe (Rexton)
 
 Personal portfolio website built with **Next.js 16** and **React 19**, deployed via GitHub Pages.
 
