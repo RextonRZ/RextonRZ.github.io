@@ -4,6 +4,8 @@ Personal portfolio website built with **Next.js 16** and **React 19**, deployed 
 
 **Live site:** [rextonrz.github.io](https://rextonrz.github.io)
 
+![Portfolio Preview](public/portfoliodisplay.gif)
+
 ---
 
 ## Tech Stack
