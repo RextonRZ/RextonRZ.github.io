@@ -1,6 +1,6 @@
 # Personal Portfolio by Rui Zhe (Rexton)
 
-Personal portfolio website built with **Next.js 16** and **React 19**, deployed via GitHub Pages.
+Personal portfolio website built with **Next.js** and **React**, deployed via GitHub Pages.
 
 **Live site:** [rextonrz.github.io](https://rextonrz.github.io)
 
