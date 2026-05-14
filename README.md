@@ -50,7 +50,7 @@ src/
 
 ## Sections
 
-### Home (`/`)
+### Home
 - **Hero** — Name, title, social links (Email, LinkedIn, GitHub, Instagram), profile video/image
 - **About Me** — Bio with interactive photo panel; click mini cards to swap the featured photo
 - **Education** — Draggable carousel timeline across 3 institutions (SMJK Chung Ling, Penang Matriculation College, University of Malaya) with floating bubble photo clusters; double-click bubbles to cycle images
