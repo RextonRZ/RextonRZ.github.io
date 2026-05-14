@@ -1,5 +1,5 @@
 # Personal Portfolio 
-`developed by Rui Zhe (Rexton)`
+developed by Rui Zhe (Rexton)
 
 Personal portfolio website built with **Next.js** and **React**, deployed via GitHub Pages.
 
