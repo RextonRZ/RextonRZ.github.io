@@ -127,6 +127,27 @@ function tagStyle(tag: string): React.CSSProperties {
   return { background: c.bg, color: c.fg };
 }
 
+function CardCloud() {
+  return (
+    <svg
+      className="project-card-cloud"
+      width="320"
+      height="120"
+      viewBox="0 0 100 60"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M72.5 35C72.5 43.2843 65.7843 50 57.5 50H25C13.9543 50 5 41.0457 5 30C5 18.9543 13.9543 10 25 10C27.0543 10 29.0357 10.3106 30.8936 10.8798C33.7225 4.67384 40.0638 0 47.5 0C58.5457 0 67.5 8.95431 67.5 20C67.5 20.3013 67.4933 20.6011 67.4801 20.8992C70.3644 21.6702 72.5 24.3313 72.5 27.5C72.5 28.0535 72.4172 28.5878 72.2647 29.0963C76.0121 29.8398 78.8333 33.1099 78.8333 37.0833C78.8333 41.4556 75.289 45 70.9167 45H65V35H72.5Z"
+        fill="white"
+      />
+      <circle cx="55" cy="30" r="20" fill="white" />
+      <circle cx="35" cy="35" r="15" fill="white" />
+    </svg>
+  );
+}
+
 export function ProjectsSection() {
   return (
     <section id="projects" className="projects-section">
@@ -135,22 +156,30 @@ export function ProjectsSection() {
         {PROJECTS.map((p, i) => (
           <div
             key={p.id}
-            className="project-card"
+            className="project-slot"
             style={{
               top: p.position.top,
               left: p.position.left,
-              animationDelay: `${(i * 0.7) % 3}s`,
             }}
           >
-            <span className="project-year">{p.year}</span>
-            <h3 className="project-title">{p.title}</h3>
-            <p className="project-tagline">{p.tagline}</p>
-            <div className="project-tags">
-              {p.tags.map((tag) => (
-                <span key={tag} className="project-tag" style={tagStyle(tag)}>
-                  {tag}
-                </span>
-              ))}
+            <div className="project-platform">
+              <CardCloud />
+              <div className="project-halo" aria-hidden="true" />
+            </div>
+            <div
+              className="project-card"
+              style={{ animationDelay: `${(i * 0.7) % 3}s` }}
+            >
+              <span className="project-year">{p.year}</span>
+              <h3 className="project-title">{p.title}</h3>
+              <p className="project-tagline">{p.tagline}</p>
+              <div className="project-tags">
+                {p.tags.map((tag) => (
+                  <span key={tag} className="project-tag" style={tagStyle(tag)}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         ))}
