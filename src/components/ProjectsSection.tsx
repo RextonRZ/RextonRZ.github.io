@@ -25,8 +25,8 @@ const PROJECTS: Project[] = [
   {
     id: "equallens",
     title: "EqualLens",
-    tagline: "AI-Powered Talent Acquisition System",
-    year: "2025",
+    tagline: "AI-Powered Anonymised Talent Acquisition System",
+    year: "Kitahack 2025 & HackAttack 2025 Champion Project",
     tags: ["React", "Python", "FastAPI", "Gemini"],
     fullTags: ["React", "Python", "FastAPI", "Firebase", "Gemini", "Google Cloud", "Document AI", "MediaPipe"],
     description: "An advanced AI-powered Talent Acquisition System that revolutionizes hiring by enhancing efficiency, ensuring fairness, and improving the quality of hires. EqualLens handles bulk CV parsing, bias detection, multi-layered authenticity checks, AI-driven candidate ranking, and an automated interview system with facial recognition and PII redaction.",
