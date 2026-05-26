@@ -1,6 +1,7 @@
 "use client";
 
 import type React from "react";
+import { useEffect, useState } from "react";
 import "./ProjectsSection.css";
 
 type Project = {
@@ -149,40 +150,73 @@ function CardCloud() {
 }
 
 export function ProjectsSection() {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!expandedId) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setExpandedId(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [expandedId]);
+
+  const openCard = (id: string) => {
+    if (expandedId === id) return;
+    if (expandedId) {
+      setExpandedId(null);
+      setTimeout(() => setExpandedId(id), 160);
+    } else {
+      setExpandedId(id);
+    }
+  };
+
   return (
     <section id="projects" className="projects-section">
       <h2 className="projects-heading">Projects</h2>
-      <div className="projects-canvas">
-        {PROJECTS.map((p, i) => (
-          <div
-            key={p.id}
-            className="project-slot"
-            style={{
-              top: p.position.top,
-              left: p.position.left,
-            }}
-          >
-            <div className="project-platform">
-              <CardCloud />
-              <div className="project-halo" aria-hidden="true" />
-            </div>
+      <div
+        className={`projects-canvas${expandedId ? " has-expanded" : ""}`}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) setExpandedId(null);
+        }}
+      >
+        {PROJECTS.map((p, i) => {
+          const isExpanded = expandedId === p.id;
+          return (
             <div
-              className="project-card"
-              style={{ animationDelay: `${(i * 0.7) % 3}s` }}
+              key={p.id}
+              className={`project-slot${isExpanded ? " is-expanded" : ""}${expandedId && !isExpanded ? " is-dimmed" : ""}`}
+              style={{
+                top: p.position.top,
+                left: p.position.left,
+              }}
             >
-              <span className="project-year">{p.year}</span>
-              <h3 className="project-title">{p.title}</h3>
-              <p className="project-tagline">{p.tagline}</p>
-              <div className="project-tags">
-                {p.tags.map((tag) => (
-                  <span key={tag} className="project-tag" style={tagStyle(tag)}>
-                    {tag}
-                  </span>
-                ))}
+              <div className="project-platform">
+                <CardCloud />
+                <div className="project-halo" aria-hidden="true" />
               </div>
+              <button
+                type="button"
+                className="project-card"
+                style={{ animationDelay: `${(i * 0.7) % 3}s` }}
+                onClick={() => openCard(p.id)}
+                aria-expanded={isExpanded}
+                aria-label={`Open ${p.title}`}
+              >
+                <span className="project-year">{p.year}</span>
+                <h3 className="project-title">{p.title}</h3>
+                <p className="project-tagline">{p.tagline}</p>
+                <div className="project-tags">
+                  {p.tags.map((tag) => (
+                    <span key={tag} className="project-tag" style={tagStyle(tag)}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </button>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

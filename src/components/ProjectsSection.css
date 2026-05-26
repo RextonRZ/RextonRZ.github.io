@@ -130,3 +130,45 @@
 
 [data-theme='dark'] .project-card-cloud { display: none; }
 [data-theme='dark'] .project-halo       { display: block; }
+
+.project-card {
+  /* override button defaults */
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  display: block;
+}
+
+.project-slot.is-dimmed {
+  opacity: 0.35;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+.project-slot {
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.project-slot.is-expanded {
+  z-index: 10;
+}
+
+.project-slot.is-expanded .project-card {
+  animation: none;
+  cursor: default;
+  width: 560px;
+  min-height: 480px;
+  padding: 1.25rem 1.5rem;
+}
+
+.project-slot.is-expanded .project-platform {
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+@media (max-width: 768px) {
+  .project-slot.is-expanded .project-card {
+    width: 100%;
+    min-height: 0;
+  }
+}
