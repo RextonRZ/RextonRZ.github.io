@@ -318,7 +318,7 @@ export function ProjectsSection() {
       >
         {PROJECTS.map((p, i) => {
           const isExpanded = expandedId === p.id;
-          const previewSide: "left" | "right" = parseFloat(p.position.left) > 35 ? "left" : "right";
+          const previewSide: "left" | "right" = parseFloat(p.position.left) > 35 ? "right" : "left";
           return (
             <div
               key={p.id}
