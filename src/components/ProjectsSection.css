@@ -403,7 +403,7 @@
   transform: translateY(-50%) scale(0.92);
   opacity: 0;
   pointer-events: none;
-  width: 300px;
+  width: 460px;
   z-index: 5;
   transition: opacity 220ms ease, transform 220ms ease;
 }
