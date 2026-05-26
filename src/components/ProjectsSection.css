@@ -478,8 +478,19 @@
     font-size: 2rem;
     margin-bottom: 2rem;
   }
+  /* Force vertical stacking — earlier `.project-slot { position: absolute }`
+     rule (no media query) was winning by source order before this. */
   .project-slot {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    max-width: 360px;
     margin: 0 auto 2.5rem;
+  }
+  .project-card,
+  .project-slot.is-expanded .project-card {
+    width: 100% !important;
   }
   .project-slot.is-expanded .project-card {
     max-width: 100%;
