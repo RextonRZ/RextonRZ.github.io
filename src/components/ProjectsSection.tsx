@@ -40,7 +40,7 @@ const PROJECTS: Project[] = [
     ],
     mediaType: "video",
     githubUrl: "https://github.com/RextonRZ/EqualLens-HATK",
-    position: { top: "0%", left: "6%" },
+    position: { top: "0%", left: "14%" },
     logoSrc: "/equallenslogo.png",
     crowns: 2,
   },
@@ -55,7 +55,7 @@ const PROJECTS: Project[] = [
     mediaSrcs: [],
     mediaType: "video",
     githubUrl: "https://github.com/RextonRZ",
-    position: { top: "4%", left: "52%" },
+    position: { top: "4%", left: "50%" },
     logoSrc: "",
   },
   {
@@ -68,7 +68,7 @@ const PROJECTS: Project[] = [
     description: "Placeholder description for Gamma. Replace later.",
     mediaSrcs: [],
     mediaType: "video",
-    position: { top: "32%", left: "10%" },
+    position: { top: "32%", left: "16%" },
     logoSrc: "",
   },
   {
@@ -82,7 +82,7 @@ const PROJECTS: Project[] = [
     mediaSrcs: [],
     mediaType: "video",
     demoUrl: "https://example.com",
-    position: { top: "36%", left: "55%" },
+    position: { top: "36%", left: "48%" },
     logoSrc: "",
   },
   {
@@ -96,7 +96,7 @@ const PROJECTS: Project[] = [
     mediaSrcs: [],
     mediaType: "video",
     githubUrl: "https://github.com/RextonRZ",
-    position: { top: "64%", left: "4%" },
+    position: { top: "64%", left: "13%" },
     logoSrc: "",
   },
   {
@@ -110,7 +110,7 @@ const PROJECTS: Project[] = [
     mediaSrcs: [],
     mediaType: "video",
     githubUrl: "https://github.com/RextonRZ",
-    position: { top: "68%", left: "50%" },
+    position: { top: "68%", left: "51%" },
     logoSrc: "",
   },
 ];
