@@ -60,9 +60,7 @@
   font-size: 0.95rem;
   color: var(--text-muted);
   margin: 0 0 0.75rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.35;
 }
 
 .project-tags {
