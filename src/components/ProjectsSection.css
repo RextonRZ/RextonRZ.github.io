@@ -400,7 +400,7 @@
   transform: translateY(-50%) scale(0.92);
   opacity: 0;
   pointer-events: none;
-  width: 360px;
+  width: 300px;
   z-index: 5;
   transition: opacity 220ms ease, transform 220ms ease;
 }
@@ -462,4 +462,111 @@
 .project-slot.is-just-closed .project-hover-preview {
   opacity: 0 !important;
   pointer-events: none !important;
+}
+
+/* ───────────────────────────────────────────────────────────────
+   Mobile refinements
+   - Tighter section padding & heading on small screens
+   - Smaller logo, title, crowns, close button
+   - Expanded card uses container padding so nothing clips
+─────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .projects-section {
+    padding: 4rem 0 3rem;
+  }
+  .projects-heading {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  .project-slot {
+    margin: 0 auto 2.5rem;
+  }
+  .project-slot.is-expanded .project-card {
+    max-width: 100%;
+    padding: 1.1rem 1.1rem;
+  }
+  .project-card-head {
+    gap: 0.9rem;
+    margin-bottom: 0.85rem;
+  }
+  .project-logo {
+    width: 64px;
+    height: 64px;
+  }
+  .project-logo-fallback {
+    font-size: 1.5rem;
+  }
+  .project-title {
+    font-size: 1.15rem;
+  }
+  .project-tagline {
+    font-size: 0.85rem;
+  }
+  .project-title--lg {
+    font-size: 1.25rem;
+  }
+  .project-description {
+    font-size: 0.88rem;
+  }
+  .project-year-inline {
+    font-size: 0.65rem;
+  }
+  .project-tag {
+    font-size: 0.65rem;
+    padding: 0.12rem 0.45rem;
+  }
+  .project-crowns {
+    top: -10px;
+    right: -6px;
+  }
+  .project-crown {
+    width: 26px;
+    height: 22px;
+  }
+  .project-slot.is-expanded .project-crowns {
+    top: -14px;
+    right: -4px;
+  }
+  .project-slot.is-expanded .project-crown {
+    width: 30px;
+    height: 26px;
+  }
+  .project-close {
+    width: 26px;
+    height: 26px;
+    font-size: 0.85rem;
+    top: 0.5rem;
+    right: 0.6rem;
+  }
+  .project-monitor {
+    padding: 4px;
+    margin-bottom: 0.75rem;
+  }
+  .project-monitor-dots {
+    top: 9px;
+    left: 10px;
+    gap: 4px;
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+  .project-action {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .project-slot,
+  .project-slot.is-expanded .project-card {
+    max-width: calc(100vw - 2rem);
+  }
+  .project-logo {
+    width: 56px;
+    height: 56px;
+  }
+  .project-card {
+    padding: 1rem 1.1rem;
+  }
 }
