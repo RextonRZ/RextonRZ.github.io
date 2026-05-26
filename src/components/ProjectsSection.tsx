@@ -17,6 +17,7 @@ type Project = {
   githubUrl?: string;
   demoUrl?: string;
   position: { top: string; left: string };
+  logoSrc: string;
 };
 
 const PROJECTS: Project[] = [
@@ -33,6 +34,7 @@ const PROJECTS: Project[] = [
     githubUrl: "https://github.com/RextonRZ",
     demoUrl: "https://example.com",
     position: { top: "2%", left: "8%" },
+    logoSrc: "",
   },
   {
     id: "beta",
@@ -46,6 +48,7 @@ const PROJECTS: Project[] = [
     mediaType: "placeholder",
     githubUrl: "https://github.com/RextonRZ",
     position: { top: "10%", left: "58%" },
+    logoSrc: "",
   },
   {
     id: "gamma",
@@ -58,6 +61,7 @@ const PROJECTS: Project[] = [
     mediaSrc: "",
     mediaType: "placeholder",
     position: { top: "28%", left: "30%" },
+    logoSrc: "",
   },
   {
     id: "delta",
@@ -71,6 +75,7 @@ const PROJECTS: Project[] = [
     mediaType: "placeholder",
     demoUrl: "https://example.com",
     position: { top: "44%", left: "65%" },
+    logoSrc: "",
   },
   {
     id: "epsilon",
@@ -84,6 +89,7 @@ const PROJECTS: Project[] = [
     mediaType: "placeholder",
     githubUrl: "https://github.com/RextonRZ",
     position: { top: "60%", left: "12%" },
+    logoSrc: "",
   },
   {
     id: "zeta",
@@ -97,6 +103,7 @@ const PROJECTS: Project[] = [
     mediaType: "placeholder",
     githubUrl: "https://github.com/RextonRZ",
     position: { top: "76%", left: "48%" },
+    logoSrc: "",
   },
 ];
 
@@ -128,30 +135,10 @@ function tagStyle(tag: string): React.CSSProperties {
   return { background: c.bg, color: c.fg };
 }
 
-function CardCloud() {
-  return (
-    <svg
-      className="project-card-cloud"
-      width="320"
-      height="120"
-      viewBox="0 0 100 60"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        d="M72.5 35C72.5 43.2843 65.7843 50 57.5 50H25C13.9543 50 5 41.0457 5 30C5 18.9543 13.9543 10 25 10C27.0543 10 29.0357 10.3106 30.8936 10.8798C33.7225 4.67384 40.0638 0 47.5 0C58.5457 0 67.5 8.95431 67.5 20C67.5 20.3013 67.4933 20.6011 67.4801 20.8992C70.3644 21.6702 72.5 24.3313 72.5 27.5C72.5 28.0535 72.4172 28.5878 72.2647 29.0963C76.0121 29.8398 78.8333 33.1099 78.8333 37.0833C78.8333 41.4556 75.289 45 70.9167 45H65V35H72.5Z"
-        fill="white"
-      />
-      <circle cx="55" cy="30" r="20" fill="white" />
-      <circle cx="35" cy="35" r="15" fill="white" />
-    </svg>
-  );
-}
-
 export function ProjectsSection() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const openTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const slotRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   useEffect(() => {
     return () => {
@@ -166,6 +153,17 @@ export function ProjectsSection() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+  }, [expandedId]);
+
+  useEffect(() => {
+    if (!expandedId) return;
+    const node = slotRefs.current[expandedId];
+    if (!node) return;
+    // Wait a frame for the expansion transition to start so size is updated.
+    const raf = requestAnimationFrame(() => {
+      node.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+    return () => cancelAnimationFrame(raf);
   }, [expandedId]);
 
   const openCard = (id: string) => {
@@ -199,6 +197,7 @@ export function ProjectsSection() {
           return (
             <div
               key={p.id}
+              ref={(el) => { slotRefs.current[p.id] = el; }}
               className={`project-slot${isExpanded ? " is-expanded" : ""}${expandedId && !isExpanded ? " is-dimmed" : ""}`}
               style={{
                 top: p.position.top,
@@ -206,7 +205,6 @@ export function ProjectsSection() {
               }}
             >
               <div className="project-platform">
-                <CardCloud />
                 <div className="project-halo" aria-hidden="true" />
               </div>
               {isExpanded ? (
@@ -289,8 +287,42 @@ export function ProjectsSection() {
                   aria-label={`Open ${p.title}`}
                 >
                   <span className="project-year">{p.year}</span>
-                  <h3 className="project-title">{p.title}</h3>
-                  <p className="project-tagline">{p.tagline}</p>
+                  <div className="project-card-head">
+                    <div className="project-logo">
+                      {p.logoSrc ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={p.logoSrc} alt={`${p.title} logo`} className="project-logo-img" />
+                      ) : (
+                        <div className="project-logo-fallback" aria-hidden="true">
+                          {p.title.charAt(0)}
+                        </div>
+                      )}
+                      {p.mediaSrc && (
+                        p.mediaType === "video" ? (
+                          <video
+                            className="project-logo-preview"
+                            src={p.mediaSrc}
+                            muted
+                            loop
+                            playsInline
+                            autoPlay
+                            preload="metadata"
+                          />
+                        ) : p.mediaType === "gif" ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            className="project-logo-preview"
+                            src={p.mediaSrc}
+                            alt=""
+                          />
+                        ) : null
+                      )}
+                    </div>
+                    <div className="project-card-text">
+                      <h3 className="project-title">{p.title}</h3>
+                      <p className="project-tagline">{p.tagline}</p>
+                    </div>
+                  </div>
                   <div className="project-tags">
                     {p.tags.map((tag) => (
                       <span key={tag} className="project-tag" style={tagStyle(tag)}>

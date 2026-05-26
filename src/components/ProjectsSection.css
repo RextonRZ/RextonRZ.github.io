@@ -120,11 +120,6 @@
   z-index: 1;
 }
 
-.project-card-cloud {
-  display: block;
-  filter: drop-shadow(0 8px 16px rgba(30, 64, 175, 0.12));
-}
-
 .project-halo {
   position: absolute;
   inset: 0;
@@ -133,7 +128,6 @@
   display: none;
 }
 
-[data-theme='dark'] .project-card-cloud { display: none; }
 [data-theme='dark'] .project-halo       { display: block; }
 
 .project-card {
@@ -182,22 +176,27 @@
   position: absolute;
   top: 0.6rem;
   right: 0.8rem;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.06);
+  background: #ef4444;
   border: none;
-  color: var(--text-main);
+  color: #ffffff;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 3;
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.35);
+  transition: background 150ms ease, transform 150ms ease;
 }
-.project-close:hover { background: rgba(0, 0, 0, 0.12); }
-[data-theme='dark'] .project-close { background: rgba(255, 255, 255, 0.1); }
-[data-theme='dark'] .project-close:hover { background: rgba(255, 255, 255, 0.2); }
+.project-close:hover {
+  background: #dc2626;
+  transform: scale(1.08);
+}
 
 .project-monitor {
   background: linear-gradient(180deg, #1a1a1a, #0a0a0a);
@@ -299,3 +298,57 @@
   }
   .project-card { animation: none !important; }
 }
+
+.project-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.project-logo {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.project-logo-img,
+.project-logo-preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 250ms ease;
+}
+
+.project-logo-img      { opacity: 1; z-index: 1; }
+.project-logo-preview  { opacity: 0; z-index: 2; }
+
+.project-card:hover .project-logo-preview { opacity: 1; }
+
+.project-logo-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.15));
+}
+
+.project-card-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.project-card-text .project-title { margin-bottom: 0.1rem; }
+.project-card-text .project-tagline { margin-bottom: 0; }
