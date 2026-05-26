@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./ProjectsSection.css";
 
 type Project = {
@@ -151,6 +151,13 @@ function CardCloud() {
 
 export function ProjectsSection() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const openTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (openTimer.current) clearTimeout(openTimer.current);
+    };
+  }, []);
 
   useEffect(() => {
     if (!expandedId) return;
@@ -163,9 +170,16 @@ export function ProjectsSection() {
 
   const openCard = (id: string) => {
     if (expandedId === id) return;
+    if (openTimer.current) {
+      clearTimeout(openTimer.current);
+      openTimer.current = null;
+    }
     if (expandedId) {
       setExpandedId(null);
-      setTimeout(() => setExpandedId(id), 160);
+      openTimer.current = setTimeout(() => {
+        setExpandedId(id);
+        openTimer.current = null;
+      }, 160);
     } else {
       setExpandedId(id);
     }
@@ -175,7 +189,7 @@ export function ProjectsSection() {
     <section id="projects" className="projects-section">
       <h2 className="projects-heading">Projects</h2>
       <div
-        className={`projects-canvas${expandedId ? " has-expanded" : ""}`}
+        className="projects-canvas"
         onClick={(e) => {
           if (e.target === e.currentTarget) setExpandedId(null);
         }}
@@ -198,8 +212,7 @@ export function ProjectsSection() {
               {isExpanded ? (
                 <div
                   className="project-card"
-                  role="dialog"
-                  aria-modal="true"
+                  role="region"
                   aria-label={p.title}
                   style={{ animationDelay: `${(i * 0.7) % 3}s` }}
                   onClick={(e) => e.stopPropagation()}
