@@ -435,13 +435,13 @@ export function ProjectsSection() {
                     </div>
                   </div>
                   <div className="project-tags">
-                    {p.tags.map((tag) => (
+                    {p.fullTags.slice(0, 8).map((tag) => (
                       <span key={tag} className="project-tag" style={tagStyle(tag)}>
                         {tag}
                       </span>
                     ))}
-                    {p.fullTags.length > p.tags.length && (
-                      <span className="project-tag project-tag--more" aria-label={`${p.fullTags.length - p.tags.length} more`}>
+                    {p.fullTags.length > 8 && (
+                      <span className="project-tag project-tag--more" aria-label={`${p.fullTags.length - 8} more`}>
                         ...More
                       </span>
                     )}
