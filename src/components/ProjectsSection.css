@@ -456,3 +456,10 @@
 
 /* Don't show preview when something else is open (dimmed cards) */
 .project-slot.is-dimmed .project-hover-preview { opacity: 0 !important; }
+
+/* Suppress hover preview on a just-closed card until the mouse leaves it,
+   so the close transition isn't interrupted by the side preview popping in. */
+.project-slot.is-just-closed .project-hover-preview {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

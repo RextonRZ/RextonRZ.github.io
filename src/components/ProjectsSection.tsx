@@ -250,8 +250,14 @@ function ProjectMonitorMedia({ project }: { project: Project }) {
 
 export function ProjectsSection() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [justClosedId, setJustClosedId] = useState<string | null>(null);
   const openTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const slotRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const closeExpanded = () => {
+    if (expandedId) setJustClosedId(expandedId);
+    setExpandedId(null);
+  };
 
   useEffect(() => {
     return () => {
@@ -262,7 +268,7 @@ export function ProjectsSection() {
   useEffect(() => {
     if (!expandedId) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setExpandedId(null);
+      if (e.key === "Escape") closeExpanded();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -307,7 +313,7 @@ export function ProjectsSection() {
       <div
         className="projects-canvas"
         onClick={(e) => {
-          if (e.target === e.currentTarget) setExpandedId(null);
+          if (e.target === e.currentTarget) closeExpanded();
         }}
       >
         {PROJECTS.map((p, i) => {
@@ -317,10 +323,13 @@ export function ProjectsSection() {
             <div
               key={p.id}
               ref={(el) => { slotRefs.current[p.id] = el; }}
-              className={`project-slot project-slot--preview-${previewSide}${isExpanded ? " is-expanded" : ""}${expandedId && !isExpanded ? " is-dimmed" : ""}`}
+              className={`project-slot project-slot--preview-${previewSide}${isExpanded ? " is-expanded" : ""}${expandedId && !isExpanded ? " is-dimmed" : ""}${justClosedId === p.id ? " is-just-closed" : ""}`}
               style={{
                 top: p.position.top,
                 left: p.position.left,
+              }}
+              onMouseLeave={() => {
+                if (justClosedId === p.id) setJustClosedId(null);
               }}
             >
               <div className="project-platform">
@@ -348,7 +357,7 @@ export function ProjectsSection() {
                     type="button"
                     className="project-close"
                     aria-label="Close"
-                    onClick={() => setExpandedId(null)}
+                    onClick={() => closeExpanded()}
                   >
                     ✕
                   </button>
