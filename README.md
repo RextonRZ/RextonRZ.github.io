@@ -1,8 +1,8 @@
-# Personal Portfolio by Rui Zhe (Rexton)
+# Personal Portfolio developed by Rui Zhe (Rexton)
 
-Personal portfolio website built with **Next.js 16** and **React 19**, deployed via GitHub Pages.
+Personal portfolio website built with **Next.js** and **React**, deployed via GitHub Pages.
 
-**Live site:** [rextonrz.github.io](https://rextonrz.github.io)
+**Live site at:** [rextonrz.github.io](https://rextonrz.github.io)
 
 ![Portfolio Preview](public/portfoliodisplay.gif)
 
@@ -49,7 +49,7 @@ src/
 
 ## Sections
 
-### Home (`/`)
+### Home
 - **Hero** — Name, title, social links (Email, LinkedIn, GitHub, Instagram), profile video/image
 - **About Me** — Bio with interactive photo panel; click mini cards to swap the featured photo
 - **Education** — Draggable carousel timeline across 3 institutions (SMJK Chung Ling, Penang Matriculation College, University of Malaya) with floating bubble photo clusters; double-click bubbles to cycle images
