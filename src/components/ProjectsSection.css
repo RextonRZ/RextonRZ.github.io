@@ -1,0 +1,23 @@
+.projects-section {
+  position: relative;
+  padding: 4rem 0 6rem;
+}
+
+.projects-heading {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--text-main);
+}
+
+.projects-canvas {
+  position: relative;
+  width: 100%;
+  min-height: 1200px;
+}
+
+@media (max-width: 768px) {
+  .projects-canvas {
+    min-height: auto;
+  }
+}

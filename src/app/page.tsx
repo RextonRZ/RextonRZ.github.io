@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { EducationRoadmap } from "@/components/EducationRoadmap";
 import { ExperienceSection } from "@/components/ExperienceSection";
+import { ProjectsSection } from "@/components/ProjectsSection";
 
 // ── Photo data ────────────────────────────────────────────────────────────────
 type PhotoId = "main" | "hackathons" | "teams" | "community";
@@ -203,9 +204,7 @@ export default function Home() {
       <ExperienceSection />
 
       {/* Projects Section */}
-      <section id="projects" className="projects-section">
-        <h2 className="projects-heading">Projects</h2>
-      </section>
+      <ProjectsSection />
     </div>
   );
 }
