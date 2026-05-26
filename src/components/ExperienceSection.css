@@ -368,7 +368,7 @@
 @media (max-width: 768px) {
   .experience-section { margin-left: 0; }
   .experience-float-area { min-height: 920px; }
-  .exp-card-drift { width: 100%; max-width: 200px; }
+  .exp-card-drift { width: 100%; max-width: 260px; }
   .exp-card-drift--1 { left: 0%;   top: 10px;  }
   .exp-card-drift--2 { left: 50%;  top: 10px;  }
   .exp-card-drift--3 { left: 0%;   top: 235px; }
