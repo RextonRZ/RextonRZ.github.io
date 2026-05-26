@@ -195,25 +195,98 @@ export function ProjectsSection() {
                 <CardCloud />
                 <div className="project-halo" aria-hidden="true" />
               </div>
-              <button
-                type="button"
-                className="project-card"
-                style={{ animationDelay: `${(i * 0.7) % 3}s` }}
-                onClick={() => openCard(p.id)}
-                aria-expanded={isExpanded}
-                aria-label={`Open ${p.title}`}
-              >
-                <span className="project-year">{p.year}</span>
-                <h3 className="project-title">{p.title}</h3>
-                <p className="project-tagline">{p.tagline}</p>
-                <div className="project-tags">
-                  {p.tags.map((tag) => (
-                    <span key={tag} className="project-tag" style={tagStyle(tag)}>
-                      {tag}
-                    </span>
-                  ))}
+              {isExpanded ? (
+                <div
+                  className="project-card"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label={p.title}
+                  style={{ animationDelay: `${(i * 0.7) % 3}s` }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    type="button"
+                    className="project-close"
+                    aria-label="Close"
+                    onClick={() => setExpandedId(null)}
+                  >
+                    ✕
+                  </button>
+
+                  <div className="project-monitor">
+                    <div className="project-monitor-dots" aria-hidden="true">
+                      <span className="dot dot-red" />
+                      <span className="dot dot-amber" />
+                      <span className="dot dot-green" />
+                    </div>
+                    <div className="project-monitor-screen">
+                      {p.mediaType === "video" && p.mediaSrc ? (
+                        <video src={p.mediaSrc} autoPlay muted loop playsInline />
+                      ) : p.mediaType === "gif" && p.mediaSrc ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={p.mediaSrc} alt={`${p.title} demo`} />
+                      ) : (
+                        <div className="project-monitor-placeholder">▶ Demo coming soon</div>
+                      )}
+                    </div>
+                    <div className="project-monitor-stand" aria-hidden="true" />
+                  </div>
+
+                  <h3 className="project-title project-title--lg">{p.title}</h3>
+                  <p className="project-description">{p.description}</p>
+
+                  <div className="project-tags project-tags--full">
+                    {p.fullTags.map((tag) => (
+                      <span key={tag} className="project-tag" style={tagStyle(tag)}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="project-actions">
+                    {p.githubUrl && (
+                      <a
+                        className="project-action project-action--outline"
+                        href={p.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        GitHub
+                      </a>
+                    )}
+                    {p.demoUrl && (
+                      <a
+                        className="project-action project-action--solid"
+                        href={p.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Live Demo
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </button>
+              ) : (
+                <button
+                  type="button"
+                  className="project-card"
+                  style={{ animationDelay: `${(i * 0.7) % 3}s` }}
+                  onClick={() => openCard(p.id)}
+                  aria-expanded={false}
+                  aria-label={`Open ${p.title}`}
+                >
+                  <span className="project-year">{p.year}</span>
+                  <h3 className="project-title">{p.title}</h3>
+                  <p className="project-tagline">{p.tagline}</p>
+                  <div className="project-tags">
+                    {p.tags.map((tag) => (
+                      <span key={tag} className="project-tag" style={tagStyle(tag)}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </button>
+              )}
             </div>
           );
         })}

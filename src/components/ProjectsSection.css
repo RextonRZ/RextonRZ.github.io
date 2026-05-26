@@ -172,3 +172,117 @@
     min-height: 0;
   }
 }
+
+.project-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.8rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.06);
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+.project-close:hover { background: rgba(0, 0, 0, 0.12); }
+[data-theme='dark'] .project-close { background: rgba(255, 255, 255, 0.1); }
+[data-theme='dark'] .project-close:hover { background: rgba(255, 255, 255, 0.2); }
+
+.project-monitor {
+  background: linear-gradient(180deg, #1a1a1a, #0a0a0a);
+  border-radius: 14px;
+  padding: 6px;
+  margin-bottom: 1rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.project-monitor-dots {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  display: flex;
+  gap: 5px;
+  z-index: 2;
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; display: block; }
+.dot-red   { background: #ef4444; }
+.dot-amber { background: #f59e0b; }
+.dot-green { background: #22c55e; }
+
+.project-monitor-screen {
+  background: #000;
+  border-radius: 8px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project-monitor-screen video,
+.project-monitor-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.project-monitor-placeholder {
+  color: #7df9ff;
+  font-family: monospace;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  text-shadow: 0 0 6px #7df9ff;
+}
+
+.project-monitor-stand {
+  width: 40px;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
+  margin: 4px auto 0;
+}
+
+.project-title--lg { font-size: 1.5rem; margin: 0.25rem 0 0.5rem; }
+
+.project-description {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0 0 0.85rem;
+}
+
+.project-tags--full { margin-bottom: 1rem; }
+
+.project-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.project-action {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+.project-action:hover { transform: translateY(-2px); }
+
+.project-action--solid {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.project-action--outline {
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--card-border);
+}
