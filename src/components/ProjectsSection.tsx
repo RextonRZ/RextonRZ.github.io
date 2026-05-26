@@ -29,7 +29,7 @@ const PROJECTS: Project[] = [
     year: "2025",
     tags: ["React", "Python", "FastAPI", "Gemini"],
     fullTags: ["React", "Python", "FastAPI", "Firebase", "Gemini", "Google Cloud", "Document AI", "MediaPipe"],
-    description: "An advanced AI-powered Talent Acquisition System that revolutionizes hiring by enhancing efficiency, ensuring fairness, and improving the quality of hires. EqualLens handles bulk CV parsing, bias detection, multi-layered authenticity checks, AI-driven candidate ranking, and an automated interview system with facial recognition and PII redaction. Champion of two competitions.",
+    description: "An advanced AI-powered Talent Acquisition System that revolutionizes hiring by enhancing efficiency, ensuring fairness, and improving the quality of hires. EqualLens handles bulk CV parsing, bias detection, multi-layered authenticity checks, AI-driven candidate ranking, and an automated interview system with facial recognition and PII redaction.",
     mediaSrcs: [
       "/equallenspart1.mp4",
       "/equallenspart2.mp4",
@@ -147,6 +147,35 @@ function tagStyle(tag: string): React.CSSProperties {
   return { background: c.bg, color: c.fg };
 }
 
+function CrownIcon() {
+  return (
+    <svg
+      viewBox="0 0 28 24"
+      xmlns="http://www.w3.org/2000/svg"
+      className="project-crown-svg"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="crown-gold" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#fde68a" />
+          <stop offset="55%" stopColor="#fbbf24" />
+          <stop offset="100%" stopColor="#d97706" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M3.5 18 L5.5 8 Q5.6 6.8 6.8 7.4 L10.5 10.5 Q11.4 11 11.9 10 L13.4 5.5 Q14 4 14.6 5.5 L16.1 10 Q16.6 11 17.5 10.5 L21.2 7.4 Q22.4 6.8 22.5 8 L24.5 18 Q24.7 19.5 23.2 19.5 L4.8 19.5 Q3.3 19.5 3.5 18 Z"
+        fill="url(#crown-gold)"
+        stroke="rgba(255,255,255,0.85)"
+        strokeWidth="0.6"
+        strokeLinejoin="round"
+      />
+      <circle cx="14" cy="14" r="1.2" fill="#ef4444" stroke="rgba(255,255,255,0.6)" strokeWidth="0.3" />
+      <circle cx="8" cy="14" r="0.8" fill="#3b82f6" stroke="rgba(255,255,255,0.6)" strokeWidth="0.3" />
+      <circle cx="20" cy="14" r="0.8" fill="#3b82f6" stroke="rgba(255,255,255,0.6)" strokeWidth="0.3" />
+    </svg>
+  );
+}
+
 function ProjectMonitorMedia({ project }: { project: Project }) {
   const [idx, setIdx] = useState(0);
 
@@ -212,7 +241,12 @@ export function ProjectsSection() {
     if (!node) return;
     // Wait a frame for the expansion transition to start so size is updated.
     const raf = requestAnimationFrame(() => {
-      node.scrollIntoView({ behavior: "smooth", block: "center" });
+      const rect = node.getBoundingClientRect();
+      const NAV_OFFSET = 100; // clear the fixed nav
+      window.scrollTo({
+        top: window.scrollY + rect.top - NAV_OFFSET,
+        behavior: "smooth",
+      });
     });
     return () => cancelAnimationFrame(raf);
   }, [expandedId]);
@@ -269,7 +303,9 @@ export function ProjectsSection() {
                   {p.crowns && p.crowns > 0 ? (
                     <div className="project-crowns" aria-label={`Champion of ${p.crowns} competition${p.crowns > 1 ? "s" : ""}`}>
                       {Array.from({ length: p.crowns }).map((_, ci) => (
-                        <span key={ci} className="project-crown" aria-hidden="true">👑</span>
+                        <span key={ci} className="project-crown">
+                          <CrownIcon />
+                        </span>
                       ))}
                     </div>
                   ) : null}
@@ -341,7 +377,9 @@ export function ProjectsSection() {
                   {p.crowns && p.crowns > 0 ? (
                     <div className="project-crowns" aria-label={`Champion of ${p.crowns} competition${p.crowns > 1 ? "s" : ""}`}>
                       {Array.from({ length: p.crowns }).map((_, ci) => (
-                        <span key={ci} className="project-crown" aria-hidden="true">👑</span>
+                        <span key={ci} className="project-crown">
+                          <CrownIcon />
+                        </span>
                       ))}
                     </div>
                   ) : null}
@@ -354,26 +392,6 @@ export function ProjectsSection() {
                         <div className="project-logo-fallback" aria-hidden="true">
                           {p.title.charAt(0)}
                         </div>
-                      )}
-                      {p.mediaSrcs.length > 0 && (
-                        p.mediaType === "video" ? (
-                          <video
-                            className="project-logo-preview"
-                            src={p.mediaSrcs[0]}
-                            muted
-                            loop
-                            playsInline
-                            autoPlay
-                            preload="metadata"
-                          />
-                        ) : (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            className="project-logo-preview"
-                            src={p.mediaSrcs[0]}
-                            alt=""
-                          />
-                        )
                       )}
                     </div>
                     <div className="project-card-text">
@@ -388,6 +406,11 @@ export function ProjectsSection() {
                         {tag}
                       </span>
                     ))}
+                    {p.fullTags.length > p.tags.length && (
+                      <span className="project-tag project-tag--more" aria-label={`${p.fullTags.length - p.tags.length} more`}>
+                        ...More
+                      </span>
+                    )}
                   </div>
                 </button>
               )}
