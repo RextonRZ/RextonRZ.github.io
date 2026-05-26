@@ -396,3 +396,66 @@
 .project-slot.is-expanded .project-card {
   max-width: calc(100vw - 4rem);
 }
+
+.project-hover-preview {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(0.92);
+  opacity: 0;
+  pointer-events: none;
+  width: 300px;
+  z-index: 5;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.project-slot--preview-right .project-hover-preview {
+  left: calc(100% + 16px);
+}
+
+.project-slot--preview-left .project-hover-preview {
+  right: calc(100% + 16px);
+}
+
+.project-slot:hover .project-hover-preview {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+.project-hover-frame {
+  background: linear-gradient(180deg, #1a1a1a, #0a0a0a);
+  border-radius: 12px;
+  padding: 5px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.project-hover-frame::before {
+  /* small pointer arrow toward the card */
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background: #1a1a1a;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.project-slot--preview-right .project-hover-frame::before { left: -5px; }
+.project-slot--preview-left  .project-hover-frame::before { right: -5px; }
+
+.project-hover-media {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #000;
+}
+
+/* On small screens, hide the side preview (no room) */
+@media (max-width: 900px) {
+  .project-hover-preview { display: none; }
+}
+
+/* Don't show preview when something else is open (dimmed cards) */
+.project-slot.is-dimmed .project-hover-preview { opacity: 0 !important; }

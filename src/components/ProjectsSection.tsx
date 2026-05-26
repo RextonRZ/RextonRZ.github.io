@@ -68,7 +68,7 @@ const PROJECTS: Project[] = [
     description: "Placeholder description for Gamma. Replace later.",
     mediaSrcs: [],
     mediaType: "video",
-    position: { top: "32%", left: "16%" },
+    position: { top: "25%", left: "15%" },
     logoSrc: "",
   },
   {
@@ -82,7 +82,7 @@ const PROJECTS: Project[] = [
     mediaSrcs: [],
     mediaType: "video",
     demoUrl: "https://example.com",
-    position: { top: "36%", left: "48%" },
+    position: { top: "30%", left: "50%" },
     logoSrc: "",
   },
   {
@@ -96,7 +96,7 @@ const PROJECTS: Project[] = [
     mediaSrcs: [],
     mediaType: "video",
     githubUrl: "https://github.com/RextonRZ",
-    position: { top: "64%", left: "13%" },
+    position: { top: "49%", left: "14%" },
     logoSrc: "",
   },
   {
@@ -110,7 +110,7 @@ const PROJECTS: Project[] = [
     mediaSrcs: [],
     mediaType: "video",
     githubUrl: "https://github.com/RextonRZ",
-    position: { top: "68%", left: "51%" },
+    position: { top: "53%", left: "51%" },
     logoSrc: "",
   },
 ];
@@ -173,6 +173,39 @@ function CrownIcon() {
       <circle cx="8" cy="14" r="0.8" fill="#3b82f6" stroke="rgba(255,255,255,0.6)" strokeWidth="0.3" />
       <circle cx="20" cy="14" r="0.8" fill="#3b82f6" stroke="rgba(255,255,255,0.6)" strokeWidth="0.3" />
     </svg>
+  );
+}
+
+function HoverPreview({ project }: { project: Project }) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (v) {
+      v.playbackRate = 2;
+    }
+  }, []);
+
+  if (project.mediaSrcs.length === 0) return null;
+
+  if (project.mediaType === "gif") {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img className="project-hover-media" src={project.mediaSrcs[0]} alt="" />
+    );
+  }
+
+  return (
+    <video
+      ref={videoRef}
+      className="project-hover-media"
+      src={project.mediaSrcs[0]}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+    />
   );
 }
 
@@ -279,11 +312,12 @@ export function ProjectsSection() {
       >
         {PROJECTS.map((p, i) => {
           const isExpanded = expandedId === p.id;
+          const previewSide: "left" | "right" = parseFloat(p.position.left) > 35 ? "left" : "right";
           return (
             <div
               key={p.id}
               ref={(el) => { slotRefs.current[p.id] = el; }}
-              className={`project-slot${isExpanded ? " is-expanded" : ""}${expandedId && !isExpanded ? " is-dimmed" : ""}`}
+              className={`project-slot project-slot--preview-${previewSide}${isExpanded ? " is-expanded" : ""}${expandedId && !isExpanded ? " is-dimmed" : ""}`}
               style={{
                 top: p.position.top,
                 left: p.position.left,
@@ -413,6 +447,13 @@ export function ProjectsSection() {
                     )}
                   </div>
                 </button>
+              )}
+              {!isExpanded && p.mediaSrcs.length > 0 && (
+                <div className="project-hover-preview" aria-hidden="true">
+                  <div className="project-hover-frame">
+                    <HoverPreview project={p} />
+                  </div>
+                </div>
               )}
             </div>
           );
