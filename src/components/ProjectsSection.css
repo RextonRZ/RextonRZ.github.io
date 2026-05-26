@@ -48,14 +48,6 @@
   box-shadow: 0 16px 40px rgba(30, 64, 175, 0.18);
 }
 
-.project-year {
-  position: absolute;
-  top: 0.6rem;
-  right: 0.9rem;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  opacity: 0.7;
-}
 
 .project-title {
   font-size: 1.1rem;
@@ -352,3 +344,43 @@
 
 .project-card-text .project-title { margin-bottom: 0.1rem; }
 .project-card-text .project-tagline { margin-bottom: 0; }
+
+.project-year-inline {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+.project-crowns {
+  position: absolute;
+  top: -14px;
+  right: -10px;
+  display: flex;
+  gap: 2px;
+  z-index: 4;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
+}
+
+.project-crown {
+  font-size: 1.6rem;
+  line-height: 1;
+  display: inline-block;
+  transform-origin: center bottom;
+}
+.project-crown:nth-child(1) { transform: rotate(-12deg); }
+.project-crown:nth-child(2) { transform: rotate(12deg) translateX(-4px); }
+.project-crown:nth-child(3) { transform: rotate(0deg) translateX(-8px); }
+
+.project-slot.is-expanded .project-crowns {
+  top: -18px;
+  right: -8px;
+}
+.project-slot.is-expanded .project-crown {
+  font-size: 1.9rem;
+}

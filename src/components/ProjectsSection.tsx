@@ -12,29 +12,37 @@ type Project = {
   tags: string[];
   fullTags: string[];
   description: string;
-  mediaSrc: string;
-  mediaType: "video" | "gif" | "placeholder";
+  mediaSrcs: string[];
+  mediaType: "video" | "gif";
   githubUrl?: string;
   demoUrl?: string;
   position: { top: string; left: string };
   logoSrc: string;
+  crowns?: number;
 };
 
 const PROJECTS: Project[] = [
   {
-    id: "alpha",
-    title: "Project Alpha",
-    tagline: "AI-powered code reviewer",
+    id: "equallens",
+    title: "EqualLens",
+    tagline: "AI-Powered Talent Acquisition System",
     year: "2025",
-    tags: ["React", "TypeScript", "Python"],
-    fullTags: ["React", "TypeScript", "Python", "FastAPI", "OpenAI"],
-    description: "Placeholder description. Replace later with real content. Two to three sentences about what the project does and why it exists.",
-    mediaSrc: "",
-    mediaType: "placeholder",
-    githubUrl: "https://github.com/RextonRZ",
-    demoUrl: "https://example.com",
+    tags: ["React", "Python", "FastAPI", "Gemini"],
+    fullTags: ["React", "Python", "FastAPI", "Firebase", "Gemini", "Google Cloud", "Document AI", "MediaPipe"],
+    description: "An advanced AI-powered Talent Acquisition System that revolutionizes hiring by enhancing efficiency, ensuring fairness, and improving the quality of hires. EqualLens handles bulk CV parsing, bias detection, multi-layered authenticity checks, AI-driven candidate ranking, and an automated interview system with facial recognition and PII redaction. Champion of two competitions.",
+    mediaSrcs: [
+      "/equallenspart1.mp4",
+      "/equallenspart2.mp4",
+      "/equallenspart3.mp4",
+      "/equallenspart4.mp4",
+      "/equallenspart5.mp4",
+      "/equallenspart6.mp4",
+    ],
+    mediaType: "video",
+    githubUrl: "https://github.com/RextonRZ/EqualLens-HATK",
     position: { top: "2%", left: "8%" },
-    logoSrc: "",
+    logoSrc: "/equallenslogo.png",
+    crowns: 2,
   },
   {
     id: "beta",
@@ -44,8 +52,8 @@ const PROJECTS: Project[] = [
     tags: ["Next.js", "TypeScript"],
     fullTags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Tailwind"],
     description: "Placeholder description for Beta. Replace later.",
-    mediaSrc: "",
-    mediaType: "placeholder",
+    mediaSrcs: [],
+    mediaType: "video",
     githubUrl: "https://github.com/RextonRZ",
     position: { top: "10%", left: "58%" },
     logoSrc: "",
@@ -58,8 +66,8 @@ const PROJECTS: Project[] = [
     tags: ["Python", "PyTorch"],
     fullTags: ["Python", "PyTorch", "OpenCV", "Docker"],
     description: "Placeholder description for Gamma. Replace later.",
-    mediaSrc: "",
-    mediaType: "placeholder",
+    mediaSrcs: [],
+    mediaType: "video",
     position: { top: "28%", left: "30%" },
     logoSrc: "",
   },
@@ -71,8 +79,8 @@ const PROJECTS: Project[] = [
     tags: ["React Native", "Firebase"],
     fullTags: ["React Native", "Firebase", "TypeScript"],
     description: "Placeholder description for Delta. Replace later.",
-    mediaSrc: "",
-    mediaType: "placeholder",
+    mediaSrcs: [],
+    mediaType: "video",
     demoUrl: "https://example.com",
     position: { top: "44%", left: "65%" },
     logoSrc: "",
@@ -85,8 +93,8 @@ const PROJECTS: Project[] = [
     tags: ["Go", "Redis"],
     fullTags: ["Go", "Redis", "Kubernetes", "gRPC"],
     description: "Placeholder description for Epsilon. Replace later.",
-    mediaSrc: "",
-    mediaType: "placeholder",
+    mediaSrcs: [],
+    mediaType: "video",
     githubUrl: "https://github.com/RextonRZ",
     position: { top: "60%", left: "12%" },
     logoSrc: "",
@@ -99,8 +107,8 @@ const PROJECTS: Project[] = [
     tags: ["Rust", "WASM"],
     fullTags: ["Rust", "WASM", "TypeScript"],
     description: "Placeholder description for Zeta. Replace later.",
-    mediaSrc: "",
-    mediaType: "placeholder",
+    mediaSrcs: [],
+    mediaType: "video",
     githubUrl: "https://github.com/RextonRZ",
     position: { top: "76%", left: "48%" },
     logoSrc: "",
@@ -128,11 +136,54 @@ const TAG_COLORS: Record<string, { bg: string; fg: string }> = {
   Docker:        { bg: "#dbeafe", fg: "#1d4ed8" },
   Kubernetes:    { bg: "#dbeafe", fg: "#1d4ed8" },
   gRPC:          { bg: "#e0e7ff", fg: "#3730a3" },
+  Gemini:        { bg: "#dbeafe", fg: "#1e3a8a" },
+  "Google Cloud":{ bg: "#dbeafe", fg: "#1d4ed8" },
+  "Document AI": { bg: "#dcfce7", fg: "#065f46" },
+  MediaPipe:     { bg: "#ede9fe", fg: "#6d28d9" },
 };
 
 function tagStyle(tag: string): React.CSSProperties {
   const c = TAG_COLORS[tag] ?? { bg: "#e5e7eb", fg: "#374151" };
   return { background: c.bg, color: c.fg };
+}
+
+function ProjectMonitorMedia({ project }: { project: Project }) {
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIdx(0);
+  }, [project.id]);
+
+  if (project.mediaSrcs.length === 0) {
+    return <div className="project-monitor-placeholder">▶ Demo coming soon</div>;
+  }
+
+  if (project.mediaType === "gif") {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src={project.mediaSrcs[0]} alt={`${project.title} demo`} />
+    );
+  }
+
+  const src = project.mediaSrcs[idx];
+  const isSingle = project.mediaSrcs.length === 1;
+
+  return (
+    <video
+      key={src}
+      src={src}
+      autoPlay
+      muted
+      playsInline
+      loop={isSingle}
+      onEnded={() => {
+        if (!isSingle) {
+          setIdx((i) => (i + 1) % project.mediaSrcs.length);
+        }
+      }}
+    />
+  );
 }
 
 export function ProjectsSection() {
@@ -215,6 +266,14 @@ export function ProjectsSection() {
                   style={{ animationDelay: `${(i * 0.7) % 3}s` }}
                   onClick={(e) => e.stopPropagation()}
                 >
+                  {p.crowns && p.crowns > 0 ? (
+                    <div className="project-crowns" aria-label={`Champion of ${p.crowns} competition${p.crowns > 1 ? "s" : ""}`}>
+                      {Array.from({ length: p.crowns }).map((_, ci) => (
+                        <span key={ci} className="project-crown" aria-hidden="true">👑</span>
+                      ))}
+                    </div>
+                  ) : null}
+
                   <button
                     type="button"
                     className="project-close"
@@ -231,14 +290,7 @@ export function ProjectsSection() {
                       <span className="dot dot-green" />
                     </div>
                     <div className="project-monitor-screen">
-                      {p.mediaType === "video" && p.mediaSrc ? (
-                        <video src={p.mediaSrc} autoPlay muted loop playsInline />
-                      ) : p.mediaType === "gif" && p.mediaSrc ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={p.mediaSrc} alt={`${p.title} demo`} />
-                      ) : (
-                        <div className="project-monitor-placeholder">▶ Demo coming soon</div>
-                      )}
+                      <ProjectMonitorMedia project={p} />
                     </div>
                     <div className="project-monitor-stand" aria-hidden="true" />
                   </div>
@@ -286,7 +338,13 @@ export function ProjectsSection() {
                   aria-expanded={false}
                   aria-label={`Open ${p.title}`}
                 >
-                  <span className="project-year">{p.year}</span>
+                  {p.crowns && p.crowns > 0 ? (
+                    <div className="project-crowns" aria-label={`Champion of ${p.crowns} competition${p.crowns > 1 ? "s" : ""}`}>
+                      {Array.from({ length: p.crowns }).map((_, ci) => (
+                        <span key={ci} className="project-crown" aria-hidden="true">👑</span>
+                      ))}
+                    </div>
+                  ) : null}
                   <div className="project-card-head">
                     <div className="project-logo">
                       {p.logoSrc ? (
@@ -297,30 +355,31 @@ export function ProjectsSection() {
                           {p.title.charAt(0)}
                         </div>
                       )}
-                      {p.mediaSrc && (
+                      {p.mediaSrcs.length > 0 && (
                         p.mediaType === "video" ? (
                           <video
                             className="project-logo-preview"
-                            src={p.mediaSrc}
+                            src={p.mediaSrcs[0]}
                             muted
                             loop
                             playsInline
                             autoPlay
                             preload="metadata"
                           />
-                        ) : p.mediaType === "gif" ? (
+                        ) : (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img
                             className="project-logo-preview"
-                            src={p.mediaSrc}
+                            src={p.mediaSrcs[0]}
                             alt=""
                           />
-                        ) : null
+                        )
                       )}
                     </div>
                     <div className="project-card-text">
                       <h3 className="project-title">{p.title}</h3>
                       <p className="project-tagline">{p.tagline}</p>
+                      <span className="project-year-inline">{p.year}</span>
                     </div>
                   </div>
                   <div className="project-tags">
