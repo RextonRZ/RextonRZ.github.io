@@ -131,7 +131,30 @@ export function ProjectsSection() {
   return (
     <section id="projects" className="projects-section">
       <h2 className="projects-heading">Projects</h2>
-      <div className="projects-canvas" />
+      <div className="projects-canvas">
+        {PROJECTS.map((p, i) => (
+          <div
+            key={p.id}
+            className="project-card"
+            style={{
+              top: p.position.top,
+              left: p.position.left,
+              animationDelay: `${(i * 0.7) % 3}s`,
+            }}
+          >
+            <span className="project-year">{p.year}</span>
+            <h3 className="project-title">{p.title}</h3>
+            <p className="project-tagline">{p.tagline}</p>
+            <div className="project-tags">
+              {p.tags.map((tag) => (
+                <span key={tag} className="project-tag" style={tagStyle(tag)}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }
