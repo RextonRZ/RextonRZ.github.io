@@ -32,7 +32,6 @@ src/
 │   ├── page.css              # Home page styles
 │   ├── awards/page.tsx
 │   ├── blog/page.tsx
-│   ├── contact/page.tsx
 │   ├── experience/page.tsx
 │   ├── projects/page.tsx
 │   └── skills/page.tsx
@@ -56,7 +55,7 @@ src/
 - **Experience** — Freely drifting glassmorphism cards at 3 depth layers; cards blur/sharpen dynamically when they overlap; click any card to open a detail modal
 
 ### Other pages (in progress)
-`/projects` · `/skills` · `/awards` · `/blog` · `/contact`
+`/projects` · `/skills` · `/awards` · `/blog`
 
 ---
 

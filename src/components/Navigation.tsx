@@ -37,9 +37,8 @@ export function Navigation() {
     { name: "Education", path: "/#education" },
     { name: "Experience", path: "/#experience" },
     { name: "Projects", path: "/#projects" },
-    { name: "Awards", path: "/awards" },
+    { name: "Awards", path: "/#awards" },
     { name: "Blog", path: "/blog" },
-    { name: "Contact", path: "/contact" },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {

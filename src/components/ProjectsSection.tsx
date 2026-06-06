@@ -173,6 +173,50 @@ const PROJECTS: Project[] = [
   },
 ];
 
+type Award = {
+  src: string;
+  title: string;
+  result: string;
+  date: string;
+  linkedin?: string;
+  instagram?: string;
+};
+
+const AWARDS: Award[] = [
+  {
+    src: "/myhackchamp.jpeg",
+    title: "Build With AI MyHack 2026",
+    result: "Winner",
+    date: "May 16 – May 17",
+    linkedin: "https://www.linkedin.com/posts/rzrexton_hackathon-ai-startupecosystem-ugcPost-7462724337721163776-SByO",
+    instagram: "https://www.instagram.com/p/DW2r8b_mFKq/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+  },
+  {
+    src: "/hackattackchamp.jpeg",
+    title: "Hack Attack 2025",
+    result: "Champion",
+    date: "Apr 28 – Jul 5",
+    linkedin: "https://www.linkedin.com/posts/rzrexton_hackattack-hackathon-champion-ugcPost-7351682916831145985-4nzU",
+    instagram: "https://www.instagram.com/p/DMKEniBvjPI",
+  },
+  {
+    src: "/kitahackchamp.jpeg",
+    title: "KitaHack 2025",
+    result: "Champion",
+    date: "Mar 3 – May 4",
+    linkedin: "https://www.linkedin.com/posts/rzrexton_kitahack2025-gdgoncampus-gdgoncampusmalaysia-ugcPost-7326920860408119296-XKwS",
+    instagram: "https://www.instagram.com/p/DKkRnJkzktI",
+  },
+  {
+    src: "/designduel2ndrunnerup.jpeg",
+    title: "Design Duel 2025",
+    result: "2nd Runner Up",
+    date: "May 25 – Jun 1",
+    linkedin: "https://www.linkedin.com/posts/rzrexton_last-week-i-had-the-opportunity-to-participate-ugcPost-7337204036921716739-r181",
+    instagram: "https://www.instagram.com/designduel.um/",
+  },
+];
+
 // How many tech tags the collapsed card shows before the "+N more" chip.
 // Kept low so the tag list never exceeds two rows on the 360px card.
 const COLLAPSED_TAG_LIMIT = 5;
@@ -590,6 +634,7 @@ export function ProjectsSection() {
   }, [expandedId]);
 
   return (
+    <>
     <section id="projects" className="projects-section">
       <h2 className="projects-heading">Projects</h2>
       <div className="projects-canvas">
@@ -776,5 +821,56 @@ export function ProjectsSection() {
         </div>
       )}
     </section>
+
+    <section id="awards" className="awards-section">
+      <h2 className="projects-heading awards-heading">Awards</h2>
+      <div className="awards-grid">
+        {AWARDS.map((a) => (
+          <div className="award-card" key={a.title}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="award-img" src={a.src} alt={`${a.title} — ${a.result}`} />
+            <div className="award-shade" aria-hidden="true" />
+            <div className="award-overlay">
+              <span className="award-result">{a.result}</span>
+              <span className="award-title">{a.title}</span>
+              <span className="award-date">{a.date}</span>
+              {(a.linkedin || a.instagram) && (
+                <div className="award-links">
+                  {a.linkedin && (
+                    <a
+                      className="award-link"
+                      href={a.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${a.title} on LinkedIn`}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+                      </svg>
+                    </a>
+                  )}
+                  {a.instagram && (
+                    <a
+                      className="award-link"
+                      href={a.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${a.title} on Instagram`}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+    </>
   );
 }

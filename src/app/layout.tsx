@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
 
 import { BackgroundElements } from "@/components/BackgroundElements";
 
@@ -31,6 +32,8 @@ export default function RootLayout({
           <main className="main-content">
             {children}
           </main>
+
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

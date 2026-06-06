@@ -1,0 +1,151 @@
+.site-footer {
+  position: relative;
+  margin-top: 4rem;
+  border-top: 1px solid var(--card-border);
+  /* Subtle surface that sits above the page gradient. */
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 2rem;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 2.5rem;
+}
+
+/* ── Brand column ── */
+.footer-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.9rem;
+}
+
+.footer-bio {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 22rem;
+  margin-bottom: 1.4rem;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  opacity: 0.75;
+  transition: color 200ms ease, opacity 200ms ease, transform 200ms ease;
+}
+
+.footer-social:hover {
+  color: var(--accent);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* ── Link columns ── */
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.footer-col-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.3rem;
+}
+
+.footer-link {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  opacity: 0.8;
+  width: fit-content;
+  transition: color 180ms ease, opacity 180ms ease;
+}
+
+.footer-link:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+
+/* ── Divider + bottom bar ── */
+.footer-divider {
+  height: 1px;
+  background: var(--card-border);
+  margin: 2.5rem 0 1.5rem;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  opacity: 0.85;
+  letter-spacing: 0.2px;
+}
+
+.footer-copy-mark {
+  font-size: 1rem;
+}
+
+.footer-copy-dot {
+  opacity: 0.5;
+}
+
+.footer-copy-name {
+  font-weight: 600;
+  color: transparent;
+  background: linear-gradient(90deg, var(--accent), #38bdf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-inner {
+    padding: 2.5rem 1.5rem 1.75rem;
+  }
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+  .footer-bottom {
+    justify-content: center;
+    text-align: center;
+  }
+}
