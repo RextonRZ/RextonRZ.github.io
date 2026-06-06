@@ -17,6 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Tech-tag brand logos are served from Iconify; warm the connection. */}
+        <link rel="preconnect" href="https://api.iconify.design" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://api.iconify.design" />
+      </head>
       <body>
         <ThemeProvider>
           <BackgroundElements />
