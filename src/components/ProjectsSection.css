@@ -13,7 +13,7 @@
 .projects-canvas {
   position: relative;
   width: 100%;
-  min-height: 1050px;
+  min-height: 1100px;
 }
 
 @media (max-width: 768px) {
@@ -422,6 +422,67 @@
   text-align: center;
   font-variant-numeric: tabular-nums;
 }
+
+/* ───────────────────────────────────────────────────────────────
+   Phone frame — portrait mockup for mobile app demos (e.g. GrabMate).
+─────────────────────────────────────────────────────────────── */
+.project-phone {
+  position: relative;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #2a2a2a, #0a0a0a);
+  border-radius: 30px;
+  padding: 9px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+/* Speaker slit at the top bezel. */
+.project-phone::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 42px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  z-index: 5;
+}
+.project-phone-screen {
+  position: relative;
+  aspect-ratio: 9 / 20;
+  height: min(62vh, 540px);
+  background: #000;
+  border-radius: 22px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project-phone-screen video,
+.project-phone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* When the demo is a phone, narrow the modal and the media column so the
+   portrait device doesn't leave a big empty gap. */
+.project-modal--phone {
+  width: min(880px, 100%);
+}
+.project-modal--phone .project-modal-media {
+  flex: 0 0 42%;
+}
+
+@media (max-width: 768px) {
+  .project-phone-screen {
+    height: auto;
+    width: min(215px, 58vw);
+  }
+  .project-modal--phone .project-modal-media {
+    flex: none;
+  }
+}
 .project-monitor-placeholder {
   color: #7df9ff;
   font-family: monospace;
@@ -546,6 +607,30 @@
   font-weight: 700;
   color: var(--text-muted);
   background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.15));
+}
+
+/* Grab-style branded avatar (used when a project has no logo image). */
+.grab-logo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: linear-gradient(150deg, #00d066 0%, #00b14f 55%, #00873c 100%);
+  color: #ffffff;
+}
+.grab-logo-wheel {
+  width: 36%;
+  height: 36%;
+  display: block;
+}
+.grab-logo-text {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  line-height: 1;
 }
 
 .project-card-text {
@@ -722,6 +807,20 @@
   aspect-ratio: 16 / 9;
   object-fit: cover;
   background: #000;
+}
+
+/* Portrait hover preview for mobile app demos (phone-shaped). */
+.project-hover-preview--phone {
+  width: 165px;
+}
+.project-hover-preview--phone .project-hover-frame {
+  border-radius: 20px;
+  padding: 6px;
+}
+.project-hover-preview--phone .project-hover-media {
+  aspect-ratio: 9 / 20;
+  object-fit: cover;
+  border-radius: 14px;
 }
 
 /* On small screens, hide the side preview (no room) */

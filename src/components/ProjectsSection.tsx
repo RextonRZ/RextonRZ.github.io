@@ -14,10 +14,15 @@ type Project = {
   description: string;
   mediaSrcs: string[];
   mediaType: "video" | "gif";
+  // The on-screen device frame for the demo. "mobile" uses a portrait phone
+  // mockup (for app demos); defaults to the desktop monitor.
+  mediaFrame?: "desktop" | "mobile";
   githubUrl?: string;
   demoUrl?: string;
   position: { top: string; left: string };
   logoSrc: string;
+  // Branded fallback avatar when there is no logo image (e.g. "grab").
+  logoBrand?: "grab";
   crowns?: number;
   // Non-champion achievement (e.g. finalist / placement). Rendered as a medal
   // badge — a visually lower tier than the champion crown. The string is used
@@ -89,6 +94,23 @@ const PROJECTS: Project[] = [
     medal: "6th Place & Top 15 Finalist — UMHackathon 2026",
   },
   {
+    id: "grabmate",
+    title: "GrabMate",
+    tagline: "Handsfree Voice Assistant for Grab Driver-Partners",
+    year: "Top 10 Finalist · UMHackathon 2025",
+    tags: ["React Native", "FastAPI", "Gemini", "Python"],
+    fullTags: ["React Native", "FastAPI", "Python", "Gemini", "OpenAI Whisper","Google Speech-to-Text", "Google Text-to-Speech", "Google Translate", "noisereduce"],
+    description: "A voice-first, handsfree AI assistant for Grab's driver-partners (DAX), built for UMHackathon 2025 (Domain 1). GrabMate lets drivers interact entirely by voice in the noisy road conditions of Southeast Asia, combining noise-reduced speech-to-text with an OpenAI Whisper fallback, multilingual detection and translation, Gemini-powered intent handling for navigation and messaging, and natural voice responses. It also layers in traffic-aware routing, experimental flood checks, and camera-based drowsiness detection for safer driving.",
+    mediaSrcs: ["/grabmatedemo.mp4"],
+    mediaType: "video",
+    mediaFrame: "mobile",
+    githubUrl: "https://github.com/RextonRZ/Voice-Driven-Driver-Assistant-Final",
+    position: { top: "29%", left: "50%" },
+    logoSrc: "",
+    logoBrand: "grab",
+    medal: "Top 10 Finalist — UMHackathon 2025",
+  },
+  {
     id: "saladprotocol",
     title: "Salad Protocol",
     tagline: "Your AI Nutritionist Companion",
@@ -105,7 +127,7 @@ const PROJECTS: Project[] = [
     ],
     mediaType: "video",
     githubUrl: "https://github.com/jianwen0414/SaladProtocol_v2",
-    position: { top: "30%", left: "50%" },
+    position: { top: "50%", left: "14%" },
     logoSrc: "/saladprotocollogo.png",
   },
   {
@@ -119,21 +141,7 @@ const PROJECTS: Project[] = [
     mediaSrcs: [],
     mediaType: "video",
     githubUrl: "https://github.com/RextonRZ",
-    position: { top: "49%", left: "14%" },
-    logoSrc: "",
-  },
-  {
-    id: "zeta",
-    title: "Project Zeta",
-    tagline: "Static site generator",
-    year: "2023",
-    tags: ["Rust", "WASM"],
-    fullTags: ["Rust", "WASM", "TypeScript"],
-    description: "Placeholder description for Zeta. Replace later.",
-    mediaSrcs: [],
-    mediaType: "video",
-    githubUrl: "https://github.com/RextonRZ",
-    position: { top: "53%", left: "51%" },
+    position: { top: "54%", left: "51%" },
     logoSrc: "",
   },
 ];
@@ -176,6 +184,10 @@ const TAG_ICONS: Record<string, string> = {
   "AWS EC2": "logos:aws-ec2",
   MiniLM: "logos:hugging-face-icon",
   "Groq Whisper": "logos:openai",
+  "OpenAI Whisper": "logos:openai",
+  "Google Speech-to-Text": "logos:google-cloud",
+  "Google Text-to-Speech": "logos:google-cloud",
+  "Google Translate": "logos:google-cloud",
   Upstash: "logos:upstash",
   TensorFlow: "logos:tensorflow",
   "scikit-learn": "skill-icons:scikitlearn-light",
@@ -334,15 +346,37 @@ function AwardBadge({ project }: { project: Project }) {
   return null;
 }
 
-function HoverPreview({ project }: { project: Project }) {
+// Branded fallback avatar for projects without a logo image. Currently only
+// "grab" — a Grab-green badge with a steering wheel + wordmark.
+function GrabMateLogo() {
+  return (
+    <div className="grab-logo" aria-label="GrabMate logo">
+      <svg className="grab-logo-wheel" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="#ffffff" strokeWidth="2" />
+        <circle cx="12" cy="12" r="2.4" fill="#ffffff" />
+        <path d="M12 9.6 V4.2 M9.9 13.2 L5.4 16.3 M14.1 13.2 L18.6 16.3" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+      <span className="grab-logo-text">GrabMate</span>
+    </div>
+  );
+}
+
+function HoverPreview({ project, active }: { project: Project; active: boolean }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
+  // Only the hovered card's preview plays — otherwise every card would decode a
+  // video in the background, which made the whole page (and modals) lag.
   useEffect(() => {
     const v = videoRef.current;
-    if (v) {
-      v.playbackRate = 2;
+    if (!v) return;
+    v.playbackRate = 2;
+    if (active) {
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+      v.currentTime = 0;
     }
-  }, []);
+  }, [active]);
 
   if (project.mediaSrcs.length === 0) return null;
 
@@ -358,11 +392,10 @@ function HoverPreview({ project }: { project: Project }) {
       ref={videoRef}
       className="project-hover-media"
       src={project.mediaSrcs[0]}
-      autoPlay
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="none"
     />
   );
 }
@@ -416,12 +449,45 @@ function ProjectMonitorMedia({ project }: { project: Project }) {
   );
 }
 
+// The device frame around a demo: a portrait phone for mobile app demos,
+// otherwise the desktop monitor.
+function ProjectFrame({ project }: { project: Project }) {
+  if (project.mediaFrame === "mobile") {
+    return (
+      <div className="project-phone">
+        <div className="project-phone-screen">
+          <ProjectMonitorMedia project={project} />
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="project-monitor">
+      <div className="project-monitor-dots" aria-hidden="true">
+        <span className="dot dot-red" />
+        <span className="dot dot-amber" />
+        <span className="dot dot-green" />
+      </div>
+      <div className="project-monitor-screen">
+        <ProjectMonitorMedia project={project} />
+      </div>
+      <div className="project-monitor-stand" aria-hidden="true" />
+    </div>
+  );
+}
+
 export function ProjectsSection() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const expanded = PROJECTS.find((p) => p.id === expandedId) ?? null;
 
   const closeExpanded = () => setExpandedId(null);
+
+  const openCard = (id: string) => {
+    setHoveredId(null);
+    setExpandedId(id);
+  };
 
   // Close on Escape and lock background scroll while the modal is open.
   useEffect(() => {
@@ -458,6 +524,8 @@ export function ProjectsSection() {
                 top: p.position.top,
                 left: p.position.left,
               }}
+              onMouseEnter={() => setHoveredId(p.id)}
+              onMouseLeave={() => setHoveredId((cur) => (cur === p.id ? null : cur))}
             >
               <div className="project-platform">
                 <div className="project-halo" aria-hidden="true" />
@@ -466,7 +534,7 @@ export function ProjectsSection() {
                 type="button"
                 className="project-card"
                 style={{ animationDelay: `${(i * 0.7) % 3}s` }}
-                onClick={() => setExpandedId(p.id)}
+                onClick={() => openCard(p.id)}
                 aria-expanded={false}
                 aria-label={`Open ${p.title}`}
               >
@@ -476,6 +544,8 @@ export function ProjectsSection() {
                     {p.logoSrc ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={p.logoSrc} alt={`${p.title} logo`} className="project-logo-img" />
+                    ) : p.logoBrand === "grab" ? (
+                      <GrabMateLogo />
                     ) : (
                       <div className="project-logo-fallback" aria-hidden="true">
                         {p.title.charAt(0)}
@@ -500,9 +570,12 @@ export function ProjectsSection() {
                 </div>
               </button>
               {p.mediaSrcs.length > 0 && (
-                <div className="project-hover-preview" aria-hidden="true">
+                <div
+                  className={`project-hover-preview${p.mediaFrame === "mobile" ? " project-hover-preview--phone" : ""}`}
+                  aria-hidden="true"
+                >
                   <div className="project-hover-frame">
-                    <HoverPreview project={p} />
+                    <HoverPreview project={p} active={hoveredId === p.id && expandedId === null} />
                   </div>
                 </div>
               )}
@@ -514,7 +587,7 @@ export function ProjectsSection() {
       {expanded && (
         <div className="project-modal-overlay" onClick={closeExpanded}>
           <div
-            className="project-modal"
+            className={`project-modal${expanded.mediaFrame === "mobile" ? " project-modal--phone" : ""}`}
             role="dialog"
             aria-modal="true"
             aria-label={expanded.title}
@@ -532,17 +605,7 @@ export function ProjectsSection() {
             </button>
 
             <div className="project-modal-media">
-              <div className="project-monitor">
-                <div className="project-monitor-dots" aria-hidden="true">
-                  <span className="dot dot-red" />
-                  <span className="dot dot-amber" />
-                  <span className="dot dot-green" />
-                </div>
-                <div className="project-monitor-screen">
-                  <ProjectMonitorMedia project={expanded} />
-                </div>
-                <div className="project-monitor-stand" aria-hidden="true" />
-              </div>
+              <ProjectFrame project={expanded} />
             </div>
 
             <div className="project-modal-content">
