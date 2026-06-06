@@ -4,7 +4,7 @@
 }
 
 .projects-heading {
-  font-size: 2.5rem;
+  font-size: 3rem;
   text-align: center;
   margin-bottom: 3rem;
   color: var(--text-main);
@@ -13,7 +13,7 @@
 .projects-canvas {
   position: relative;
   width: 100%;
-  min-height: 1100px;
+  min-height: 1080px;
 }
 
 @media (max-width: 768px) {
@@ -514,6 +514,7 @@
   display: flex;
   gap: 0.6rem;
   flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .project-action {
@@ -559,6 +560,48 @@
   background: #30363d;
   border-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* "Open in Colab" — same button treatment as GitHub, light surface. */
+.project-action--colab {
+  background: #ffffff;
+  color: #1f2937;
+  border: 1px solid #e4e7ec;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.project-action--colab:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+[data-theme='dark'] .project-action--colab {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+[data-theme='dark'] .project-action--colab:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* "Figma Design" / "Live Prototype" — same neutral surface as the Colab button. */
+.project-action--figma {
+  background: #ffffff;
+  color: #1f2937;
+  border: 1px solid #e4e7ec;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.project-action--figma:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+[data-theme='dark'] .project-action--figma {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+[data-theme='dark'] .project-action--figma:hover {
+  background: rgba(255, 255, 255, 0.14);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -631,6 +674,55 @@
   font-weight: 800;
   letter-spacing: 0.3px;
   line-height: 1;
+}
+
+/* Toxic comment detector branded avatar. */
+.toxic-logo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: linear-gradient(150deg, #a04747 0%, #9f2828 50%, #5f1d1d 100%);
+  color: #ffffff;
+}
+.toxic-logo-icon {
+  width: 46%;
+  height: 46%;
+  display: block;
+}
+.toxic-logo-text {
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+/* Senyumé skincare branded avatar — warm golden badge with the smile curve. */
+.seyume-logo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: linear-gradient(150deg, #f3d27a 0%, #e0a93a 55%, #c98a2a 100%);
+  color: #ffffff;
+}
+.seyume-logo-text {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 1;
+}
+.seyume-logo-smile {
+  width: 58%;
+  height: auto;
+  display: block;
+  margin-top: -1px;
 }
 
 .project-card-text {

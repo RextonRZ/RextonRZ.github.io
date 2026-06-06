@@ -19,15 +19,22 @@ type Project = {
   mediaFrame?: "desktop" | "mobile";
   githubUrl?: string;
   demoUrl?: string;
+  colabUrl?: string;
+  // Figma design file and clickable prototype (design projects).
+  figmaUrl?: string;
+  figmaProtoUrl?: string;
   position: { top: string; left: string };
   logoSrc: string;
-  // Branded fallback avatar when there is no logo image (e.g. "grab").
-  logoBrand?: "grab";
+  // Branded fallback avatar when there is no logo image.
+  logoBrand?: "grab" | "toxic" | "seyume";
   crowns?: number;
   // Non-champion achievement (e.g. finalist / placement). Rendered as a medal
   // badge — a visually lower tier than the champion crown. The string is used
   // as the accessible label.
   medal?: string;
+  // Optional rank engraved on the medal (e.g. "3" for a 3rd-place / 2nd
+  // runner-up placement). When omitted the medal shows its default star.
+  medalRank?: string;
 };
 
 const PROJECTS: Project[] = [
@@ -68,6 +75,24 @@ const PROJECTS: Project[] = [
     crowns: 1,
   },
   {
+    id: "seyume",
+    title: "Senyumé",
+    tagline: "UI/UX Design for a Gen Z Skincare E-Commerce Storefront",
+    year: "2nd Runner-Up · Design Duel 2025",
+    tags: ["Figma", "UI/UX Design"],
+    fullTags: ["Figma", "UI/UX Design"],
+    description: "A Gen Z–focused e-commerce storefront for Senyumé, a Malaysian natural skincare brand, designed end-to-end in Figma for Design Duel 2025. The design pairs warm golden tones with a clean, minimalist layout — intuitive product discovery with a personalised 'Find Your Formulation' tool, an AI chatbot assistant, and an integrated reviews and social-proof gallery drawn from across ASEAN to build trust and drive conversions. It went through multiple wireframe iterations, evolving from a cluttered first pass into a refined black-and-white layout that adds colour and emphasis on hover to guide attention from discovery through to checkout.",
+    mediaSrcs: ["/seyumedemo.mp4"],
+    mediaType: "video",
+    figmaUrl: "https://www.figma.com/design/FjHDt5VrXDXtMWu8L2HmZM/Design-Duel?node-id=356-1408&t=xOaOIja8iZfShtl8-0",
+    figmaProtoUrl: "https://www.figma.com/proto/FjHDt5VrXDXtMWu8L2HmZM/Design-Duel?node-id=356-1408&t=xOaOIja8iZfShtl8-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2",
+    position: { top: "25%", left: "15%" },
+    logoSrc: "/seyumelogo.png",
+    logoBrand: "seyume",
+    medal: "2nd Runner-Up — Design Duel 2025",
+    medalRank: "3",
+  },
+  {
     id: "supplylah",
     title: "SupplyLah",
     tagline: "AI-Powered Wholesale Order Automation",
@@ -89,7 +114,7 @@ const PROJECTS: Project[] = [
     ],
     mediaType: "video",
     githubUrl: "https://github.com/RextonRZ/SupplyLah",
-    position: { top: "25%", left: "15%" },
+    position: { top: "29%", left: "50%" },
     logoSrc: "/supplylahlogo.png",
     medal: "6th Place & Top 15 Finalist — UMHackathon 2026",
   },
@@ -105,16 +130,32 @@ const PROJECTS: Project[] = [
     mediaType: "video",
     mediaFrame: "mobile",
     githubUrl: "https://github.com/RextonRZ/Voice-Driven-Driver-Assistant-Final",
-    position: { top: "29%", left: "50%" },
+    position: { top: "50%", left: "14%" },
     logoSrc: "",
     logoBrand: "grab",
     medal: "Top 10 Finalist — UMHackathon 2025",
   },
   {
+    id: "toxicdetector",
+    title: "Toxic Comment Detector",
+    tagline: "Multilingual Toxicity Detection for English, Malay & Manglish",
+    year: "Project Developed in 2026",
+    tags: ["Python", "PyTorch", "HuggingFace", "Gradio"],
+    fullTags: ["Python", "PyTorch", "HuggingFace", "Transformers", "XLM-RoBERTa", "Gradio", "Captum", "Google Colab"],
+    description: "A multilingual toxic-comment classifier for English, Malay, and code-mixed Manglish, built on XLM-RoBERTa. It compares a zero-shot setup (monolingual training only) against a few-shot setup that incorporates around 300 code-mixed examples. This nearly doubled code-mixed F1 (0.42 → 0.71) and recall (0.30 → 0.61) while maintaining performance on English and Malay. The project includes a Gradio demo with confidence scores and Integrated Gradients word-level attribution.",
+    mediaSrcs: ["/demotoxiccomment.mp4"],
+    mediaType: "video",
+    githubUrl: "https://github.com/RextonRZ/malay-english-toxic-detector",
+    colabUrl: "https://colab.research.google.com/drive/1askVXzNOZW2zkVLZ9Je1jyMp6vONcjK7?usp=sharing",
+    position: { top: "54%", left: "51%" },
+    logoSrc: "",
+    logoBrand: "toxic",
+  },
+  {
     id: "saladprotocol",
     title: "Salad Protocol",
-    tagline: "Your AI Nutritionist Companion",
-    year: "2025",
+    tagline: "AI Nutritionist Chatbot with Food-Image Recognition & Personalised Diet Advice",
+    year: "Project Built in 2025",
     tags: ["React", "FastAPI", "Gemini", "TensorFlow"],
     fullTags: ["TypeScript", "React", "Python", "FastAPI", "Firebase", "Firestore", "Google Cloud Storage", "Gemini", "Upstash", "TensorFlow", "scikit-learn"],
     description: "An AI-powered nutritionist chatbot that gives personalised dietary advice and analyses meals from a photo. Salad Protocol pairs a Gemini-powered chat assistant with a custom food-image recognition model for calorie and macro estimation, and a RAG knowledge base (Upstash Vector) grounded in the Malaysian Food Composition Database (MyFCD) and national dietary guidelines — tailoring recommendations to each user's age, height, and weight.",
@@ -127,22 +168,8 @@ const PROJECTS: Project[] = [
     ],
     mediaType: "video",
     githubUrl: "https://github.com/jianwen0414/SaladProtocol_v2",
-    position: { top: "50%", left: "14%" },
+    position: { top: "75%", left: "15%" },
     logoSrc: "/saladprotocollogo.png",
-  },
-  {
-    id: "epsilon",
-    title: "Project Epsilon",
-    tagline: "Distributed task scheduler",
-    year: "2023",
-    tags: ["Go", "Redis"],
-    fullTags: ["Go", "Redis", "Kubernetes", "gRPC"],
-    description: "Placeholder description for Epsilon. Replace later.",
-    mediaSrcs: [],
-    mediaType: "video",
-    githubUrl: "https://github.com/RextonRZ",
-    position: { top: "54%", left: "51%" },
-    logoSrc: "",
   },
 ];
 
@@ -167,6 +194,11 @@ const TAG_ICONS: Record<string, string> = {
   Docker: "logos:docker-icon",
   Neo4j: "logos:neo4j",
   PyTorch: "logos:pytorch",
+  HuggingFace: "logos:hugging-face-icon",
+  Transformers: "logos:hugging-face-icon",
+  Gradio: "logos:gradio",
+  Figma: "logos:figma",
+  "Google Colab": "devicon:googlecolab",
   OpenCV: "logos:opencv",
   Go: "logos:go",
   Redis: "logos:redis",
@@ -285,7 +317,7 @@ function CrownIcon() {
   );
 }
 
-function MedalIcon() {
+function MedalIcon({ rank }: { rank?: string }) {
   return (
     <svg
       viewBox="0 0 32 40"
@@ -306,20 +338,36 @@ function MedalIcon() {
       {/* Disc */}
       <circle cx="16" cy="27" r="11" fill="url(#medal-disc)" stroke="rgba(255,255,255,0.85)" strokeWidth="0.9" />
       <circle cx="16" cy="27" r="8" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="0.7" />
-      {/* Star */}
-      <path
-        d="M16 20.5 L17.6 24.7 L22.1 24.9 L18.5 27.6 L19.8 31.9 L16 29.3 L12.2 31.9 L13.5 27.6 L9.9 24.9 L14.4 24.7 Z"
-        fill="#fff7e6"
-        stroke="rgba(156,90,44,0.4)"
-        strokeWidth="0.4"
-        strokeLinejoin="round"
-      />
+      {rank ? (
+        // Engraved rank number (e.g. "3" for 3rd place).
+        <text
+          x="16"
+          y="31.4"
+          textAnchor="middle"
+          fontSize="12"
+          fontWeight="700"
+          fill="#fff7e6"
+          fontFamily="system-ui, sans-serif"
+        >
+          {rank}
+        </text>
+      ) : (
+        // Default star.
+        <path
+          d="M16 20.5 L17.6 24.7 L22.1 24.9 L18.5 27.6 L19.8 31.9 L16 29.3 L12.2 31.9 L13.5 27.6 L9.9 24.9 L14.4 24.7 Z"
+          fill="#fff7e6"
+          stroke="rgba(156,90,44,0.4)"
+          strokeWidth="0.4"
+          strokeLinejoin="round"
+        />
+      )}
     </svg>
   );
 }
 
 // Renders the achievement badge for a project: champion crowns, or a medal for
-// non-champion placements. A lone crown is mirrored so it sits nicely.
+// non-champion placements (optionally engraved with a rank). A lone crown is
+// mirrored so it sits nicely.
 function AwardBadge({ project }: { project: Project }) {
   if (project.crowns && project.crowns > 0) {
     const single = project.crowns === 1;
@@ -339,7 +387,7 @@ function AwardBadge({ project }: { project: Project }) {
   if (project.medal) {
     return (
       <div className="project-medal" aria-label={project.medal}>
-        <MedalIcon />
+        <MedalIcon rank={project.medalRank} />
       </div>
     );
   }
@@ -357,6 +405,37 @@ function GrabMateLogo() {
         <path d="M12 9.6 V4.2 M9.9 13.2 L5.4 16.3 M14.1 13.2 L18.6 16.3" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
       </svg>
       <span className="grab-logo-text">GrabMate</span>
+    </div>
+  );
+}
+
+// Branded fallback avatar for the toxic comment detector — a speech bubble with
+// a warning mark on a crimson badge.
+function ToxicLogo() {
+  return (
+    <div className="toxic-logo" aria-label="Toxic Comment Detector logo">
+      <svg className="toxic-logo-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path
+          d="M11 11 H37 a5 5 0 0 1 5 5 V31 a5 5 0 0 1 -5 5 H25 l-9 7 v-7 H11 a5 5 0 0 1 -5 -5 V16 a5 5 0 0 1 5 -5 Z"
+          fill="#ffffff"
+        />
+        <rect x="22" y="17" width="4" height="10" rx="2" fill="#dc2626" />
+        <circle cx="24" cy="31" r="2.4" fill="#dc2626" />
+      </svg>
+      <span className="toxic-logo-text">TOXIC</span>
+    </div>
+  );
+}
+
+// Branded fallback avatar for the Senyumé skincare design — a warm golden badge
+// with the wordmark over the brand's signature smile curve.
+function SeyumeLogo() {
+  return (
+    <div className="seyume-logo" aria-label="Senyumé logo">
+      <span className="seyume-logo-text">senjumé</span>
+      <svg className="seyume-logo-smile" viewBox="0 0 40 12" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 3 Q20 14 36 3" fill="none" stroke="#ffffff" strokeWidth="2.4" strokeLinecap="round" />
+      </svg>
     </div>
   );
 }
@@ -546,6 +625,10 @@ export function ProjectsSection() {
                       <img src={p.logoSrc} alt={`${p.title} logo`} className="project-logo-img" />
                     ) : p.logoBrand === "grab" ? (
                       <GrabMateLogo />
+                    ) : p.logoBrand === "toxic" ? (
+                      <ToxicLogo />
+                    ) : p.logoBrand === "seyume" ? (
+                      <SeyumeLogo />
                     ) : (
                       <div className="project-logo-fallback" aria-hidden="true">
                         {p.title.charAt(0)}
@@ -619,8 +702,35 @@ export function ProjectsSection() {
                 ))}
               </div>
 
-              {(expanded.githubUrl || expanded.demoUrl) && (
+              {(expanded.githubUrl || expanded.colabUrl || expanded.demoUrl || expanded.figmaUrl || expanded.figmaProtoUrl) && (
                 <div className="project-actions">
+                  {expanded.figmaUrl && (
+                    <a
+                      className="project-action project-action--figma"
+                      href={expanded.figmaUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        className="project-action-icon"
+                        src="https://api.iconify.design/logos/figma.svg"
+                        alt=""
+                        aria-hidden="true"
+                      />
+                      Figma Design
+                    </a>
+                  )}
+                  {expanded.figmaProtoUrl && (
+                    <a
+                      className="project-action project-action--figma"
+                      href={expanded.figmaProtoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Live Prototype
+                    </a>
+                  )}
                   {expanded.githubUrl && (
                     <a
                       className="project-action project-action--github"
@@ -630,6 +740,23 @@ export function ProjectsSection() {
                     >
                       <GitHubIcon />
                       GitHub
+                    </a>
+                  )}
+                  {expanded.colabUrl && (
+                    <a
+                      className="project-action project-action--colab"
+                      href={expanded.colabUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        className="project-action-icon"
+                        src="https://api.iconify.design/devicon/googlecolab.svg"
+                        alt=""
+                        aria-hidden="true"
+                      />
+                      Open in Colab
                     </a>
                   )}
                   {expanded.demoUrl && (
