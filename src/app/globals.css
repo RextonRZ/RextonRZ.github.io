@@ -26,6 +26,22 @@
   --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
+/* Before next-themes hydrates, data-theme is "system" — use OS preference as fallback */
+@media (prefers-color-scheme: dark) {
+  [data-theme='system'] {
+    --bg-top: #0b0f19;
+    --bg-bottom: #1e1b4b;
+    --text-main: #f8fafc;
+    --text-muted: #cbd5e1;
+    --nav-bg: rgba(15, 23, 42, 0.7);
+    --nav-border: rgba(255, 255, 255, 0.1);
+    --accent: #8b5cf6;
+    --card-bg: rgba(30, 41, 59, 0.6);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

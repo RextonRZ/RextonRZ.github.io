@@ -75,7 +75,7 @@ export function Navigation() {
         <Link href="/" className="logo-link" onClick={(e) => handleLinkClick(e, "/")}>
           <div className="logo-icon">
             <img 
-              src={resolvedTheme === "dark" ? "/rzlogowhite.png" : "/rzlogoblack.png"} 
+              src={mounted && currentTheme === "dark" ? "/rzlogowhite.png" : "/rzlogoblack.png"}
               alt="Rexton Logo" 
               className="custom-logo"
             />

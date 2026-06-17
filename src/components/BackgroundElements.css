@@ -19,11 +19,19 @@
   opacity: 0;
 }
 
-[data-theme='system'] .stars-layer {
-  opacity: 0;
+/* Before next-themes hydrates, data-theme is "system" — use OS preference as fallback */
+@media (prefers-color-scheme: dark) {
+  [data-theme='system'] .clouds-layer,
+  [data-theme='system'] .blobs-layer {
+    opacity: 0;
+  }
 }
 
-/* System defaults to light for above depending on resolvedTheme, but we use actual next-theme data attribute which applies correctly. */
+@media (prefers-color-scheme: light) {
+  [data-theme='system'] .stars-layer {
+    opacity: 0;
+  }
+}
 
 /* BLOBS ANIMATION (Light Mode) */
 .blob {
