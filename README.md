@@ -2,7 +2,7 @@
 
 Personal portfolio website built with **Next.js** and **React**, deployed via GitHub Pages.
 
-**Live site at:** [rextonrz.github.io](https://rextonrz.github.io)
+**Live site:** [rextonrz.github.io](https://rextonrz.github.io)
 
 ![Portfolio Preview](public/portfoliodisplay.gif)
 
